@@ -1,11 +1,11 @@
 import React from "react"
 import { Link } from "gatsby"
 
-const Example = () => (
+const Blog = () => (
   <div>
-    <h1>Example 3</h1>
+    <h1>Blog</h1>
     <Link to="/">Go home</Link>
   </div>
 )
 
-export default Example
+export default Blog
