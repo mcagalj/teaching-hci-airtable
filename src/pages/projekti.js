@@ -1,10 +1,11 @@
 import React from "react"
+
 import Layout from "../components/Layout"
 
-const Blog = () => (
+const Projekti = () => (
   <Layout>
-    <h1>Blog</h1>
+    <h1>Projekti</h1>
   </Layout>
 )
 
-export default Blog
+export default Projekti
