@@ -1,8 +1,33 @@
 import React from "react"
 import { Link } from "gatsby"
 
+import { Global } from "@emotion/core"
+import { css, Footer } from "theme-ui"
+
 const IndexPage = () => (
-  <div>
+  <>
+    <Global
+      styles={css({
+        "*": {
+          boxSizing: `inherit`,
+        },
+        body: {
+          margin: 0,
+          padding: 0,
+          boxSizing: `border-box`,
+          textRendering: `optimizeLegibility`,
+          fontSize: `18px`,
+          WebkitFontSmoothing: `antialiased`,
+          MozOsxFontSmoothing: `grayscale`,
+          color: `text`,
+          backgroundColor: `background`,
+          fontFamily: `body`,
+          lineHeight: `body`,
+          fontWeight: `body`,
+        },
+      })}
+    />
+
     <h1>Teaching HCI</h1>
     <h2>Examples:</h2>
     <ul>
@@ -24,7 +49,9 @@ const IndexPage = () => (
     <Link to="/blog">
       <h2>Blog</h2>
     </Link>
-  </div>
+
+    <Footer>My footer</Footer>
+  </>
 )
 
 export default IndexPage
