@@ -3,9 +3,11 @@ import { jsx, Styled } from "theme-ui"
 import { Link } from "gatsby"
 
 import Layout from "../components/layout"
+import SEO from "../components/seo"
 
 const IndexPage = () => (
   <Layout>
+    <SEO title="Naslovna" />
     <Styled.h1
       sx={{
         fontSize: [4, 5, 6],

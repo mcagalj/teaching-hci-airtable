@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Fragment } from "react"
+import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import "typeface-ibm-plex-sans"
 import { Global } from "@emotion/core"
@@ -29,7 +29,7 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <Fragment>
+    <>
       <Global
         styles={css({
           "*": {
@@ -56,7 +56,7 @@ const Layout = ({ children }) => {
         <Main>{children}</Main>
         <Footer>My footer</Footer>
       </SiteContainer>
-    </Fragment>
+    </>
   )
 }
 
