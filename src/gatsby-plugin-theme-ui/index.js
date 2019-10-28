@@ -10,6 +10,7 @@ const theme = {
     ...tailwind.sizes,
     container: "1024px",
     logo: "50px",
+    navLinkBorder: "3px",
   },
 }
 

@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, Styled, Header } from "theme-ui"
+import { Fragment } from "react"
 import { Link } from "gatsby"
 
 import logo from "../images/logo.svg"
@@ -35,16 +36,51 @@ import logo from "../images/logo.svg"
 //   },
 // ]
 
-// const NavLink = ({ children, ...prop }) => (
-//   <Styled.a as={Link} {...prop}>
-//     {children}
-//   </Styled.a>
-// )
+const NavLink = ({ children, ...prop }) => (
+  <Link
+    {...prop}
+    sx={{
+      display: "inline-block",
+      px: 2,
+      ml: 3,
+      color: "primary",
+      textDecoration: "none",
+      whiteSpace: "nowrap",
+      letterSpacing: "wide",
+      lineHeight: theme =>
+        `calc(${theme.sizes.logo} - 2*${theme.sizes.navLinkBorder})`,
+      borderTop: theme => `${theme.sizes.navLinkBorder} solid transparent`,
+      borderBottom: theme => `${theme.sizes.navLinkBorder} solid transparent`,
+      transition: "all 0.25s linear",
+      "&:hover": {
+        color: "primaryHover",
+        borderBottom: theme =>
+          `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
+      },
+    }}
+  >
+    {children}
+  </Link>
+)
+
+const NavLinks = ({ menuItems }) => (
+  <Fragment>
+    {menuItems.map(menuItem => (
+      <NavLink key={menuItem.path} to={menuItem.path}>
+        {menuItem.text}
+      </NavLink>
+    ))}
+  </Fragment>
+)
 
 const Navigation = ({ menuItems }) => {
   return (
-    <Header>
-      <Styled.a as={Link} to="/">
+    <Header
+      sx={{
+        justifyContent: "space-between",
+      }}
+    >
+      <Link to="/">
         <img
           src={logo}
           sx={{
@@ -52,13 +88,9 @@ const Navigation = ({ menuItems }) => {
             width: "auto",
           }}
         />
-      </Styled.a>
+      </Link>
       <nav>
-        {menuItems.map(menuItem => (
-          <Styled.a as={Link} key={menuItem.path} to={menuItem.path}>
-            {menuItem.text}
-          </Styled.a>
-        ))}
+        <NavLinks menuItems={menuItems} />
       </nav>
     </Header>
   )
