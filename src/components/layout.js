@@ -1,9 +1,18 @@
-import React from "react"
+/** @jsx jsx */
+import { Fragment } from "react"
+import "typeface-ibm-plex-sans"
 import { Global } from "@emotion/core"
-import { css, Footer } from "theme-ui"
+import {
+  css,
+  jsx,
+  Container as SiteContainer,
+  Header,
+  Main,
+  Footer,
+} from "theme-ui"
 
 const Layout = ({ children }) => (
-  <>
+  <Fragment>
     <Global
       styles={css({
         "*": {
@@ -14,7 +23,6 @@ const Layout = ({ children }) => (
           padding: 0,
           boxSizing: `border-box`,
           textRendering: `optimizeLegibility`,
-          fontSize: `18px`,
           WebkitFontSmoothing: `antialiased`,
           MozOsxFontSmoothing: `grayscale`,
           color: `text`,
@@ -25,9 +33,12 @@ const Layout = ({ children }) => (
         },
       })}
     />
-    {children}
-    <Footer>My footer</Footer>
-  </>
+    <SiteContainer sx={{ maxWidth: "container" }}>
+      <Header>My header</Header>
+      <Main>{children}</Main>
+      <Footer>My footer</Footer>
+    </SiteContainer>
+  </Fragment>
 )
 
 export default Layout
