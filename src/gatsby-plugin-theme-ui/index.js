@@ -8,7 +8,8 @@ const theme = {
   },
   sizes: {
     ...tailwind.sizes,
-    container: "1200px",
+    container: "1024px",
+    logo: "50px",
   },
 }
 

@@ -2,6 +2,36 @@ module.exports = {
   siteMetadata: {
     title: `Teaching HCI tutorial`,
     description: `The title says it all.`,
+    menuItems: [
+      {
+        text: "Naslovna",
+        path: "/",
+      },
+      {
+        text: "Predavanja",
+        path: "/predavanja",
+      },
+      {
+        text: "Projekti",
+        path: "/projekti",
+      },
+      {
+        text: "Rezultati",
+        path: "/rezultati",
+      },
+      {
+        text: "Ocjenjivanje",
+        path: "/ocjenjivanje",
+      },
+      {
+        text: "Blog",
+        path: "/blog",
+      },
+      {
+        text: "Q&A",
+        path: "/questions",
+      },
+    ],
     author: `MC`,
   },
   plugins: [
