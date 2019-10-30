@@ -6,13 +6,14 @@ import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Container from "../components/container"
+import BackgroundImage from "gatsby-background-image"
 
 const IndexPage = ({ data }) => {
   const { heroImage } = data
 
   return (
     <>
-      <div
+      {/* <div
         sx={{
           height: 300,
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${heroImage.sharp.fluid.src})`,
@@ -22,7 +23,7 @@ const IndexPage = ({ data }) => {
           <h1
             sx={{
               m: 0,
-              pt: 4,
+              pt: 8,
               fontSize: [5, 6, 7],
               fontWeight: "medium",
               color: "white",
@@ -32,6 +33,28 @@ const IndexPage = ({ data }) => {
           </h1>
         </Container>
       </div>
+       */}
+      <BackgroundImage
+        fluid={heroImage.sharp.fluid}
+        sx={{
+          height: 300,
+        }}
+      >
+        <Container>
+          <h1
+            sx={{
+              m: 0,
+              pt: 5,
+              fontSize: [5, 6, 7],
+              fontWeight: "medium",
+              color: "white",
+            }}
+          >
+            Teaching HCI
+          </h1>
+        </Container>
+      </BackgroundImage>
+
       <Layout>
         <SEO title="Naslovna" />
         {/* <img src={heroImage.sharp.fluid.src} /> */}
@@ -48,6 +71,7 @@ export const query = graphql`
       sharp: childImageSharp {
         fluid(maxWidth: 1920) {
           src
+          ...GatsbyImageSharpFluid_withWebp
         }
       }
     }
