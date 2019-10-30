@@ -1,8 +1,10 @@
 /** @jsx jsx */
-import { jsx, useThemeUI, Styled, Header } from "theme-ui"
+import { jsx, useThemeUI, Header } from "theme-ui"
 import React from "react"
 import { Link } from "gatsby"
+
 import logo from "../assets/logo.svg"
+import Container from "./container"
 
 // const menuItems = [
 //   {
@@ -50,7 +52,7 @@ const NavLink = ({ children, ...prop }) => {
         whiteSpace: "nowrap",
         letterSpacing: "wide",
         lineHeight: theme =>
-          `calc(${theme.sizes.logo} - 2 * ${theme.sizes.navLinkBorder})`,
+          `calc(${theme.sizes.navBar} - 2 * ${theme.sizes.navLinkBorder})`,
         borderTop: theme => `${theme.sizes.navLinkBorder} solid transparent`,
         borderBottom: theme => `${theme.sizes.navLinkBorder} solid transparent`,
         transition: "all 0.25s linear",
@@ -84,22 +86,31 @@ const Navigation = ({ menuItems }) => {
   return (
     <Header
       sx={{
-        justifyContent: "space-between",
-        alignContent: "center",
+        borderBottom: theme => `1px solid ${theme.colors.indigo[2]}`,
+        boxShadow: theme =>
+          `0 4px 6px ${theme.colors.indigo[1]},0 0 1px rgba(1,0,0,.1)`,
       }}
     >
-      <Link to="/" sx={{ display: "flex", alignItems: "center" }}>
-        <img
-          src={logo}
-          sx={{
-            height: "logo",
-            width: "auto",
-          }}
-        />
-      </Link>
-      <nav>
-        <NavLinks menuItems={menuItems} />
-      </nav>
+      <Container
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignContent: "center",
+        }}
+      >
+        <Link to="/" sx={{ display: "flex", alignItems: "center" }}>
+          <img
+            src={logo}
+            sx={{
+              height: "logo",
+              width: "auto",
+            }}
+          />
+        </Link>
+        <nav>
+          <NavLinks menuItems={menuItems} />
+        </nav>
+      </Container>
     </Header>
   )
 }

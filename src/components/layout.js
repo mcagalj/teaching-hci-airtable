@@ -3,16 +3,22 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import "typeface-ibm-plex-sans"
 import { Global } from "@emotion/core"
-import {
-  css,
-  jsx,
-  Container as SiteContainer,
-  Header,
-  Main,
-  Footer,
-} from "theme-ui"
+import { css, jsx, Header, Main, Footer } from "theme-ui"
 
 import Navigation from "../components/navigation"
+import Container from "../components/container"
+
+const SiteContainer = props => (
+  <div
+    {...props}
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      minHeight: "100vh",
+      margin: "0 auto",
+    }}
+  />
+)
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -50,11 +56,20 @@ const Layout = ({ children }) => {
           },
         })}
       />
-      <SiteContainer sx={{ maxWidth: "container" }}>
+      <SiteContainer>
         <Navigation menuItems={data.site.siteMetadata.menuItems} />
-        <Header>My header</Header>
-        <Main>{children}</Main>
-        <Footer>My footer</Footer>
+
+        {/* <Header>
+          <Container>My header</Container>
+        </Header> */}
+
+        <Main>
+          <Container>{children}</Container>
+        </Main>
+
+        <Footer>
+          <Container>My footer</Container>
+        </Footer>
       </SiteContainer>
     </>
   )
