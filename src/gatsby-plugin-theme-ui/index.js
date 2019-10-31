@@ -13,6 +13,24 @@ const theme = {
     navBar: "65px",
     navLinkBorder: "3px",
   },
+  colors: {
+    ...tailwind.colors,
+    accent: "#f50057",
+  },
+  fontWeights: {
+    ...tailwind.fontWeights,
+    heading: "500",
+  },
+  styles: {
+    ...tailwind.styles,
+    blockquote: {
+      borderLeft: theme => `5px solid ${theme.colors.accent}`,
+      paddingLeft: 2,
+      marginLeft: 0,
+      marginRight: 0,
+      fontStyle: "italic",
+    },
+  },
 }
 
 export default theme
