@@ -3,10 +3,11 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import "typeface-ibm-plex-sans"
 import { Global } from "@emotion/core"
-import { css, jsx, Header, Main, Footer } from "theme-ui"
+import { css, jsx, Main } from "theme-ui"
 
 import Navigation from "../components/navigation"
 import Container from "../components/container"
+import Footer from "../components/footer"
 
 const SiteContainer = props => (
   <div
@@ -59,17 +60,11 @@ const Layout = ({ children }) => {
       <SiteContainer>
         <Navigation menuItems={data.site.siteMetadata.menuItems} />
 
-        {/* <Header>
-          <Container>My header</Container>
-        </Header> */}
-
         <Main>
           <Container>{children}</Container>
         </Main>
 
-        <Footer>
-          <Container>My footer</Container>
-        </Footer>
+        <Footer />
       </SiteContainer>
     </>
   )

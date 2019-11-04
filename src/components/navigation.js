@@ -6,37 +6,6 @@ import { Link } from "gatsby"
 import logo from "../assets/logo.svg"
 import Container from "./container"
 
-// const menuItems = [
-//   {
-//     text: "Naslovna",
-//     path: "/",
-//   },
-//   {
-//     text: "Predavanja",
-//     path: "/predavanja",
-//   },
-//   {
-//     text: "Projekti",
-//     path: "/projekti",
-//   },
-//   {
-//     text: "Rezultati",
-//     path: "/rezultati",
-//   },
-//   {
-//     text: "Ocjenjivanje",
-//     path: "/ocjenjivanje",
-//   },
-//   {
-//     text: "Blog",
-//     path: "/blog",
-//   },
-//   {
-//     text: "Q&A",
-//     path: "/questions",
-//   },
-// ]
-
 const NavLink = ({ children, ...prop }) => {
   const { theme } = useThemeUI()
 
@@ -46,11 +15,13 @@ const NavLink = ({ children, ...prop }) => {
       sx={{
         display: "inline-block",
         px: 2,
-        ml: 3,
+        mx: 2,
         color: "primary",
         textDecoration: "none",
+        textTransform: "uppercase",
+        fontWeight: "light",
         whiteSpace: "nowrap",
-        letterSpacing: "wide",
+        letterSpacing: "tight",
         lineHeight: theme =>
           `calc(${theme.sizes.navBar} - 2 * ${theme.sizes.navLinkBorder})`,
         borderTop: theme => `${theme.sizes.navLinkBorder} solid transparent`,
@@ -60,6 +31,9 @@ const NavLink = ({ children, ...prop }) => {
           color: "primaryHover",
           borderBottom: theme =>
             `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
+        },
+        "&:last-of-type": {
+          mr: 3,
         },
       }}
       activeStyle={{
@@ -73,13 +47,26 @@ const NavLink = ({ children, ...prop }) => {
 }
 
 const NavLinks = ({ menuItems }) => (
-  <>
-    {menuItems.map(menuItem => (
-      <NavLink key={menuItem.path} to={menuItem.path}>
-        {menuItem.text}
-      </NavLink>
-    ))}
-  </>
+  <nav sx={{ minWidth: 0 }}>
+    <ul
+      sx={{
+        display: `flex`,
+        listStyle: `none`,
+        m: 0,
+        maskImage: theme =>
+          `linear-gradient(to right, transparent, white ${
+            theme.space[1]
+          }, white 98%, transparent)`,
+        overflowX: `auto`,
+      }}
+    >
+      {menuItems.map(menuItem => (
+        <NavLink key={menuItem.path} to={menuItem.path}>
+          {menuItem.text}
+        </NavLink>
+      ))}
+    </ul>
+  </nav>
 )
 
 const Navigation = ({ menuItems }) => {
@@ -104,12 +91,11 @@ const Navigation = ({ menuItems }) => {
             sx={{
               height: "logo",
               width: "auto",
+              mr: 2,
             }}
           />
         </Link>
-        <nav>
-          <NavLinks menuItems={menuItems} />
-        </nav>
+        <NavLinks menuItems={menuItems} />
       </Container>
     </Header>
   )

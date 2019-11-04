@@ -8,7 +8,7 @@ const Container = props => (
       width: "100%",
       maxWidth: "container",
       margin: "0 auto",
-      px: [3, 2],
+      px: [3, 4, 4],
     }}
   />
 )
