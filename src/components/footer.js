@@ -12,7 +12,7 @@ const Footer = () => {
       sx={{
         bg: "blue.9",
         mt: 4,
-        pt: [2, 2, 4],
+        pt: [2, 2, 3],
         pb: 2,
         color: "white",
       }}
@@ -42,7 +42,7 @@ const Footer = () => {
           Now you not only know how to build a web page, but also how to design
           it.
         </Styled.blockquote>
-        <p sx={{ mt: 4 }}>@ {currentYear} Mario Čagalj @ FESB</p>
+        <p sx={{ mt: 4 }}> Mario Čagalj © {currentYear} FESB</p>
       </Container>
     </ThemeFooter>
   )
