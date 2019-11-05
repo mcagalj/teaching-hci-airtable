@@ -18,27 +18,6 @@ const IndexPage = ({ data }) => {
 
   return (
     <>
-      {/* <div
-        sx={{
-          height: 300,
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${heroImage.sharp.fluid.src})`,
-        }}
-      >
-        <Container>
-          <h1
-            sx={{
-              m: 0,
-              pt: 8,
-              fontSize: [5, 6, 7],
-              fontWeight: "medium",
-              color: "white",
-            }}
-          >
-            Teaching HCI
-          </h1>
-        </Container>
-      </div>
-       */}
       <BackgroundImage
         fluid={heroImage.sharp.fluid}
         sx={{
@@ -67,7 +46,7 @@ const IndexPage = ({ data }) => {
           </Container>
         </div>
       </BackgroundImage>
-      {/* <img src={heroImage.sharp.fluid.src} /> */}
+
       <Layout>
         <SEO title="Naslovna" />
 
@@ -149,43 +128,3 @@ export const query = graphql`
     }
   }
 `
-// Query with mdx and image duotone option
-//
-// export const query = graphql`
-//   {
-//     heroImage: file(relativePath: { eq: "images/hero.jpg" }) {
-//       sharp: childImageSharp {
-//         fluid(maxWidth: 1920) {
-//           src
-//           ...GatsbyImageSharpFluid_withWebp
-//         }
-//       }
-//     }
-
-//     indexMdx: mdx(fileAbsolutePath: { regex: "/index.mdx/" }) {
-//       body
-//       frontmatter {
-//         title
-//       }
-//     }
-
-//     imageFiles: allFile(
-//       filter: { absolutePath: { regex: "//content/images//" } }
-//     ) {
-//       images: edges {
-//         image: node {
-//           id
-//           base
-//           sharp: childImageSharp {
-//             fluid(
-//               maxWidth: 250
-//               duotone: { highlight: "#0ec4f1", shadow: "#192550", opacity: 50 }
-//             ) {
-//               ...GatsbyImageSharpFluid_withWebp
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-// `
