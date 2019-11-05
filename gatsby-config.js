@@ -12,6 +12,10 @@ module.exports = {
         path: "/predavanja",
       },
       {
+        text: "Predavanja MDX",
+        path: "/predavanja-1",
+      },
+      {
         text: "Projekti",
         path: "/projekti",
       },

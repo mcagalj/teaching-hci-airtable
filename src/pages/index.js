@@ -82,7 +82,7 @@ const IndexPage = ({ data }) => {
 
         <h2>Galerija</h2>
         <Grid gap={[4]} columns={[1, 2, 2, 3]}>
-          {imageFiles.images.map(({ image }) => {
+          {imageFiles.images.map(({ image }, index) => {
             const author = image.base
               .split("-")
               .slice(0, -2)
@@ -104,10 +104,6 @@ const IndexPage = ({ data }) => {
                   </p>
                 </Card>
               )
-              // <Img
-              //   key={image.id}
-              //   fluid={{ ...image.sharp.fluid, aspectRatio: 21 / 15 }}
-              // />
             )
           })}
         </Grid>
