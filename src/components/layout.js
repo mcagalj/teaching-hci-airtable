@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import "typeface-ibm-plex-sans"
 import { Global } from "@emotion/core"
 import { css, jsx, Main } from "theme-ui"
 

@@ -37,7 +37,7 @@ const IndexPage = ({ data }) => {
                 m: 0,
                 pt: [4, 5],
                 fontSize: [5, 6, 7],
-                fontWeight: "medium",
+                fontWeight: "semibold",
                 color: "white",
               }}
             >

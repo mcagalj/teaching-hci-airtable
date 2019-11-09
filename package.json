@@ -29,8 +29,7 @@
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-helmet": "^5.2.1",
-    "theme-ui": "^0.2.44",
-    "typeface-ibm-plex-sans": "0.0.75"
+    "theme-ui": "^0.2.44"
   },
   "devDependencies": {
     "prettier": "^1.18.2"

@@ -4,7 +4,7 @@ module.exports = {
     description: `The title says it all.`,
     menuItems: [
       {
-        text: "Naslovna",
+        text: "Home",
         path: "/",
       },
       {
