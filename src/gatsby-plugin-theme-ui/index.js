@@ -34,6 +34,13 @@ const theme = {
       boxShadow: theme => `0 0 8px ${theme.colors.indigo[2]}`,
     },
   },
+  shadows: {
+    primary: theme =>
+      `0 4px 6px ${theme.colors.indigo[1]}, 0 0 1px rgba(1,0,0,.1)`,
+  },
+  borders: {
+    header: theme => `1px solid ${theme.colors.indigo[2]}`,
+  },
 }
 
 export default theme

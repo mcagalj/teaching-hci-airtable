@@ -6,28 +6,37 @@ import { Link } from "gatsby"
 import logo from "../assets/logo.svg"
 import more from "../assets/more.svg"
 import Container from "./container"
+import { useResponsiveMenu, useOnOutsideEvent } from "../hooks"
 
-const NavLink = ({ ...prop }) => {
+const NavLink = ({ ...prop }) => (
+  <Link
+    {...prop}
+    sx={{
+      display: "inline-block",
+      color: "primary",
+      textDecoration: "none",
+      textTransform: "uppercase",
+      fontWeight: "light",
+      whiteSpace: "nowrap",
+      letterSpacing: "tight",
+      transition: "all 0.25s linear",
+    }}
+  />
+)
+
+const VisibleNavLink = ({ ...prop }) => {
   const { theme } = useThemeUI()
 
   return (
-    <Link
+    <NavLink
       {...prop}
       sx={{
-        display: "inline-block",
-        px: 2,
         mx: 2,
-        color: "primary",
-        textDecoration: "none",
-        textTransform: "uppercase",
-        fontWeight: "light",
-        whiteSpace: "nowrap",
-        letterSpacing: "tight",
+        px: 2,
         lineHeight: theme =>
           `calc(${theme.sizes.navBar} - 2 * ${theme.sizes.navLinkBorder})`,
         borderTop: theme => `${theme.sizes.navLinkBorder} solid transparent`,
         borderBottom: theme => `${theme.sizes.navLinkBorder} solid transparent`,
-        transition: "all 0.25s linear",
         "&:hover": {
           color: "primaryHover",
           borderBottom: theme =>
@@ -46,20 +55,13 @@ const HiddenNavLink = ({ ...prop }) => {
   const { theme } = useThemeUI()
 
   return (
-    <Link
+    <NavLink
       {...prop}
       sx={{
-        display: "inline-block",
-        p: 2,
         m: 2,
-        color: "primary",
-        textDecoration: "none",
-        textTransform: "uppercase",
-        fontWeight: "light",
-        whiteSpace: "nowrap",
-        letterSpacing: "tight",
+        px: 3,
+        py: 2,
         borderLeft: theme => `${theme.sizes.navLinkBorder} solid transparent`,
-        transition: "all 0.25s linear",
         "&:hover": {
           color: "primaryHover",
           borderLeft: theme =>
@@ -74,20 +76,20 @@ const HiddenNavLink = ({ ...prop }) => {
   )
 }
 
-const MORE_BUTTON_WIDTH = 50
-const MoreButton = () => (
+const MoreButton = ({ onClick, width = 50 }) => (
   <div
     sx={{
       display: "flex",
       flexShrink: 0,
       alignItems: "center",
+      width,
       px: 3,
-      width: MORE_BUTTON_WIDTH,
       cursor: "pointer",
       "&:hover": {
         backgroundColor: "indigo.2",
       },
     }}
+    onClick={onClick}
   >
     <img
       src={more}
@@ -100,6 +102,57 @@ const MoreButton = () => (
   </div>
 )
 
+const Triangle = () => (
+  <div
+    sx={{
+      position: "absolute",
+      top: "-12px",
+      right: "15px",
+      width: "22px",
+      height: "22px",
+      lineHeight: 0,
+      fontSize: 0,
+      border: theme => theme.borders.header,
+      borderWidth: "0 0 1px 1px",
+      transform: "rotate(135deg)",
+      backgroundColor: "white",
+    }}
+  />
+)
+
+const HiddenItems = ({
+  menu,
+  handleOutsideClick,
+  minWidth = 120,
+  topOffset = 16,
+}) => {
+  const { innerBorderRef } = useOnOutsideEvent(handleOutsideClick)
+  return (
+    <div
+      ref={innerBorderRef}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        position: "absolute",
+        top: menu.containerBottomOffset + topOffset,
+        p: 2,
+        zIndex: 100,
+        minWidth,
+        backgroundColor: "white",
+        border: theme => theme.borders.header,
+        boxShadow: theme => theme.shadows.primary,
+      }}
+    >
+      <Triangle />
+      {menu.hiddenItems.map(menuItem => (
+        <HiddenNavLink key={menuItem.path} to={menuItem.path}>
+          {menuItem.text}
+        </HiddenNavLink>
+      ))}
+    </div>
+  )
+}
+
 const isEmpty = array => array.length === 0
 const getElementMargin = el => {
   const style = window.getComputedStyle(el)
@@ -108,67 +161,137 @@ const getElementMargin = el => {
   return leftMargin + rightMargin
 }
 
+// const useResponsiveMenu = ({ containerRef, menuItems }) => {
+//   const [menu, setMenu] = useState({ visibleItems: menuItems, hiddenItems: [] })
+
+//   useLayoutEffect(() => {
+//     const handleResize = () => {
+//       setMenu({ visibleItems: menuItems, hiddenItems: [] })
+
+//       const { offsetWidth: containerWidth } = containerRef.current
+
+//       // Reserve space for "More" (...) button
+//       const maxWidth = containerWidth - MORE_BUTTON_WIDTH
+
+//       const items = containerRef.current.children
+//       // We assume menu items to share the same margins
+//       const itemMargin = getElementMargin(items[0])
+
+//       const { offsetWidth: lastItemWidth } = items[items.length - 1]
+//       const canLastItemFit = lastItemWidth <= MORE_BUTTON_WIDTH ? true : false
+
+//       const menuResult = Array.from(items).reduce(
+//         (result, menuItem) => {
+//           result.cumulativeWidth += menuItem.offsetWidth + itemMargin
+
+//           result.cumulativeWidth < maxWidth
+//             ? result.visibleItems.push({
+//                 text: menuItem.text,
+//                 path: menuItem.getAttribute("href"),
+//               })
+//             : result.hiddenItems.push({
+//                 text: menuItem.text,
+//                 path: menuItem.getAttribute("href"),
+//               })
+
+//           return result
+//         },
+//         {
+//           cumulativeWidth: 0,
+//           containerBottomOffset: containerRef.current.getBoundingClientRect()
+//             .bottom,
+//           visibleItems: [],
+//           hiddenItems: [],
+//         }
+//       )
+
+//       const { visibleItems, hiddenItems, containerBottomOffset } = menuResult
+
+//       // Check can we swap the "more" button with the only hidden item
+//       if (hiddenItems.length === 1 && canLastItemFit) {
+//         visibleItems.push(hiddenItems.pop())
+//       }
+
+//       setMenu({ visibleItems, hiddenItems, containerBottomOffset })
+//     }
+
+//     handleResize()
+//     window.addEventListener("resize", handleResize)
+//     return () => {
+//       window.removeEventListener("resize", handleResize)
+//     }
+//   }, [containerRef])
+
+//   return { menu }
+// }
+
 const Nav = ({ menuItems }) => {
   const containerRef = useRef(null)
-  const [menu, setMenu] = useState({ visibleItems: menuItems, hiddenItems: [] })
+  // const [menu, setMenu] = useState({ visibleItems: menuItems, hiddenItems: [] })
+  const [moreOpen, setMoreOpen] = useState(false)
 
-  useLayoutEffect(() => {
-    const handleResize = () => {
-      setMenu({ visibleItems: menuItems, hiddenItems: [] })
+  const handleMoreClick = () => setMoreOpen(true)
+  const handleOutsideClick = () => setMoreOpen(false)
 
-      const { offsetWidth: containerWidth } = containerRef.current
+  const { menu } = useResponsiveMenu({ containerRef, menuItems })
 
-      // Reserve some space for "More" (...) button
-      const maxWidth = containerWidth - MORE_BUTTON_WIDTH
+  // useLayoutEffect(() => {
+  //   const handleResize = () => {
+  //     setMenu({ visibleItems: menuItems, hiddenItems: [] })
 
-      const items = containerRef.current.children
-      // We assume menu items to share the same margins
-      const itemMargin = getElementMargin(items[0])
+  //     const { offsetWidth: containerWidth } = containerRef.current
 
-      const { offsetWidth: lastItemWidth } = items[items.length - 1]
-      const canLastItemFit = lastItemWidth <= MORE_BUTTON_WIDTH ? true : false
+  //     // Reserve space for "More" (...) button
+  //     const maxWidth = containerWidth - MORE_BUTTON_WIDTH
 
-      const menuResult = Array.from(items).reduce(
-        (result, menuItem) => {
-          result.cumulativeWidth += menuItem.offsetWidth + itemMargin
+  //     const items = containerRef.current.children
+  //     // We assume menu items to share the same margins
+  //     const itemMargin = getElementMargin(items[0])
 
-          result.cumulativeWidth < maxWidth
-            ? result.visibleItems.push({
-                text: menuItem.text,
-                path: menuItem.getAttribute("href"),
-              })
-            : result.hiddenItems.push({
-                text: menuItem.text,
-                path: menuItem.getAttribute("href"),
-              })
+  //     const { offsetWidth: lastItemWidth } = items[items.length - 1]
+  //     const canLastItemFit = lastItemWidth <= MORE_BUTTON_WIDTH ? true : false
 
-          return result
-        },
-        {
-          cumulativeWidth: 0,
-          containerBottomOffset: containerRef.current.getBoundingClientRect()
-            .bottom,
-          visibleItems: [],
-          hiddenItems: [],
-        }
-      )
+  //     const menuResult = Array.from(items).reduce(
+  //       (result, menuItem) => {
+  //         result.cumulativeWidth += menuItem.offsetWidth + itemMargin
 
-      const { visibleItems, hiddenItems, containerBottomOffset } = menuResult
+  //         result.cumulativeWidth < maxWidth
+  //           ? result.visibleItems.push({
+  //               text: menuItem.text,
+  //               path: menuItem.getAttribute("href"),
+  //             })
+  //           : result.hiddenItems.push({
+  //               text: menuItem.text,
+  //               path: menuItem.getAttribute("href"),
+  //             })
 
-      // Check can we swap the "more" button with the only hidden item
-      if (hiddenItems.length === 1 && canLastItemFit) {
-        visibleItems.push(hiddenItems.pop())
-      }
+  //         return result
+  //       },
+  //       {
+  //         cumulativeWidth: 0,
+  //         containerBottomOffset: containerRef.current.getBoundingClientRect()
+  //           .bottom,
+  //         visibleItems: [],
+  //         hiddenItems: [],
+  //       }
+  //     )
 
-      setMenu({ visibleItems, hiddenItems, containerBottomOffset })
-    }
+  //     const { visibleItems, hiddenItems, containerBottomOffset } = menuResult
 
-    handleResize()
-    window.addEventListener("resize", handleResize)
-    return () => {
-      window.removeEventListener("resize", handleResize)
-    }
-  }, [])
+  //     // Check can we swap the "more" button with the only hidden item
+  //     if (hiddenItems.length === 1 && canLastItemFit) {
+  //       visibleItems.push(hiddenItems.pop())
+  //     }
+
+  //     setMenu({ visibleItems, hiddenItems, containerBottomOffset })
+  //   }
+
+  //   handleResize()
+  //   window.addEventListener("resize", handleResize)
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize)
+  //   }
+  // }, [])
 
   return (
     <nav
@@ -183,51 +306,15 @@ const Nav = ({ menuItems }) => {
       }}
     >
       {menu.visibleItems.map(menuItem => (
-        <NavLink key={menuItem.path} to={menuItem.path}>
+        <VisibleNavLink key={menuItem.path} to={menuItem.path}>
           {menuItem.text}
-        </NavLink>
+        </VisibleNavLink>
       ))}
-      {!isEmpty(menu.hiddenItems) && <MoreButton />}
-      {!isEmpty(menu.hiddenItems) && (
-        <div
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-
-            position: "absolute",
-            top: menu.containerBottomOffset + 16,
-            p: 2,
-            zIndex: 100,
-            minWidth: "120px",
-            backgroundColor: "white",
-            border: theme => `1px solid ${theme.colors.indigo[2]}`,
-            // borderTop: `1px solid transparent`,
-            boxShadow: theme =>
-              `0 4px 6px ${theme.colors.indigo[1]},0 0 1px rgba(1,0,0,.1)`,
-          }}
-        >
-          {menu.hiddenItems.map(menuItem => (
-            <HiddenNavLink key={menuItem.path} to={menuItem.path}>
-              {menuItem.text}
-            </HiddenNavLink>
-          ))}
-          <div
-            sx={{
-              position: "absolute",
-              top: "-12px",
-              right: "15px",
-              width: "22px",
-              height: "22px",
-              lineHeight: 0,
-              fontSize: 0,
-              border: theme => `1px solid ${theme.colors.indigo[2]}`,
-              borderWidth: "0 0 1px 1px",
-              transform: "rotate(135deg)",
-              backgroundColor: "white",
-            }}
-          />
-        </div>
-      )}
+      {!isEmpty(menu.hiddenItems) && <MoreButton onClick={handleMoreClick} />}
+      {!isEmpty(menu.hiddenItems) &&
+        (moreOpen && (
+          <HiddenItems menu={menu} handleOutsideClick={handleOutsideClick} />
+        ))}
     </nav>
   )
 }
@@ -236,9 +323,8 @@ const Navigation = ({ menuItems }) => {
   return (
     <Header
       sx={{
-        borderBottom: theme => `1px solid ${theme.colors.indigo[2]}`,
-        boxShadow: theme =>
-          `0 4px 6px ${theme.colors.indigo[1]},0 0 1px rgba(1,0,0,.1)`,
+        borderBottom: theme => theme.borders.header,
+        boxShadow: theme => theme.shadows.primary,
       }}
     >
       <Container
