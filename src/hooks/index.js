@@ -41,7 +41,7 @@ export const useOnOutsideEvent = handleOutsideClick => {
 export const useResponsiveMenu = ({
   containerRef,
   menuItems,
-  SPACE_FOR_MORELINK = 50,
+  spaceForMoreLink = 50,
 }) => {
   const [menu, setMenu] = useState({ visibleItems: menuItems, hiddenItems: [] })
 
@@ -52,14 +52,14 @@ export const useResponsiveMenu = ({
       const { offsetWidth: containerWidth } = containerRef.current
 
       // Reserve space for "More" (...) button
-      const maxWidth = containerWidth - SPACE_FOR_MORELINK
+      const maxWidth = containerWidth - spaceForMoreLink
 
       const items = containerRef.current.children
       // We assume menu items to share the same margins
       const itemMargin = getElementMargin(items[0])
 
       const { offsetWidth: lastItemWidth } = items[items.length - 1]
-      const canLastItemFit = lastItemWidth <= SPACE_FOR_MORELINK ? true : false
+      const canLastItemFit = lastItemWidth <= spaceForMoreLink ? true : false
 
       const menuResult = Array.from(items).reduce(
         (result, menuItem) => {
@@ -79,21 +79,20 @@ export const useResponsiveMenu = ({
         },
         {
           cumulativeWidth: 0,
-          containerBottomOffset: containerRef.current.getBoundingClientRect()
-            .bottom,
+          offset: containerRef.current.getBoundingClientRect().height,
           visibleItems: [],
           hiddenItems: [],
         }
       )
 
-      const { visibleItems, hiddenItems, containerBottomOffset } = menuResult
+      const { visibleItems, hiddenItems, offset } = menuResult
 
       // Check can we swap the "more" button with the only hidden item
       if (hiddenItems.length === 1 && canLastItemFit) {
         visibleItems.push(hiddenItems.pop())
       }
 
-      setMenu({ visibleItems, hiddenItems, containerBottomOffset })
+      setMenu({ visibleItems, hiddenItems, offset })
     }
 
     handleResize()

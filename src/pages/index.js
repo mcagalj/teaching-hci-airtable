@@ -21,7 +21,7 @@ const IndexPage = ({ data }) => {
       <BackgroundImage
         fluid={heroImage.sharp.fluid}
         sx={{
-          height: [150, 200, 300],
+          height: [150, 200, 250],
         }}
       >
         <div
@@ -100,9 +100,9 @@ export const query = graphql`
   {
     heroImage: file(relativePath: { eq: "images/hero.jpg" }) {
       sharp: childImageSharp {
-        fluid(maxWidth: 1920) {
+        fluid(maxWidth: 1920, traceSVG: { color: "#c3dafe" }) {
           src
-          ...GatsbyImageSharpFluid_withWebp
+          ...GatsbyImageSharpFluid
         }
       }
     }
@@ -119,8 +119,8 @@ export const query = graphql`
           id
           base
           sharp: childImageSharp {
-            fluid(maxWidth: 250) {
-              ...GatsbyImageSharpFluid_withWebp
+            fluid(maxWidth: 250, traceSVG: { color: "#c3dafe" }) {
+              ...GatsbyImageSharpFluid
             }
           }
         }

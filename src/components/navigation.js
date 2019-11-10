@@ -1,12 +1,24 @@
 /** @jsx jsx */
 import { jsx, useThemeUI, Header } from "theme-ui"
-import React, { useRef, useState, useLayoutEffect } from "react"
+import { useRef, useState } from "react"
 import { Link } from "gatsby"
 
 import logo from "../assets/logo.svg"
 import more from "../assets/more.svg"
 import Container from "./container"
 import { useResponsiveMenu, useOnOutsideEvent } from "../hooks"
+
+const LogoLink = () => (
+  <Link to="/" sx={{ display: "flex", alignItems: "center" }}>
+    <img
+      src={logo}
+      sx={{
+        height: "logo",
+        width: "auto",
+      }}
+    />
+  </Link>
+)
 
 const NavLink = ({ ...prop }) => (
   <Link
@@ -94,6 +106,7 @@ const MoreButton = ({ onClick, width = 50 }) => (
     <img
       src={more}
       sx={{
+        stroke: "red",
         height: theme =>
           `calc(calc(${theme.sizes.navBar} - 2 * ${theme.sizes.navLinkBorder})/4)`,
         width: "auto",
@@ -120,11 +133,19 @@ const Triangle = () => (
   />
 )
 
+const VisibleItems = ({ visibleItems }) =>
+  visibleItems.map(menuItem => (
+    <VisibleNavLink key={menuItem.path} to={menuItem.path}>
+      {menuItem.text}
+    </VisibleNavLink>
+  ))
+
 const HiddenItems = ({
   menu,
   handleOutsideClick,
   minWidth = 120,
-  topOffset = 16,
+  spaceForTriangle = 16,
+  zIndex = 999,
 }) => {
   const { innerBorderRef } = useOnOutsideEvent(handleOutsideClick)
   return (
@@ -134,13 +155,13 @@ const HiddenItems = ({
         display: "flex",
         flexDirection: "column",
         position: "absolute",
-        top: menu.containerBottomOffset + topOffset,
+        top: menu.offset + spaceForTriangle,
         p: 2,
-        zIndex: 100,
+        zIndex,
         minWidth,
         backgroundColor: "white",
         border: theme => theme.borders.header,
-        boxShadow: theme => theme.shadows.primary,
+        boxShadow: theme => theme.shadows.header,
       }}
     >
       <Triangle />
@@ -153,145 +174,15 @@ const HiddenItems = ({
   )
 }
 
-const isEmpty = array => array.length === 0
-const getElementMargin = el => {
-  const style = window.getComputedStyle(el)
-  const leftMargin = parseInt(style.marginLeft.split("px")[0])
-  const rightMargin = parseInt(style.marginLeft.split("px")[0])
-  return leftMargin + rightMargin
-}
-
-// const useResponsiveMenu = ({ containerRef, menuItems }) => {
-//   const [menu, setMenu] = useState({ visibleItems: menuItems, hiddenItems: [] })
-
-//   useLayoutEffect(() => {
-//     const handleResize = () => {
-//       setMenu({ visibleItems: menuItems, hiddenItems: [] })
-
-//       const { offsetWidth: containerWidth } = containerRef.current
-
-//       // Reserve space for "More" (...) button
-//       const maxWidth = containerWidth - MORE_BUTTON_WIDTH
-
-//       const items = containerRef.current.children
-//       // We assume menu items to share the same margins
-//       const itemMargin = getElementMargin(items[0])
-
-//       const { offsetWidth: lastItemWidth } = items[items.length - 1]
-//       const canLastItemFit = lastItemWidth <= MORE_BUTTON_WIDTH ? true : false
-
-//       const menuResult = Array.from(items).reduce(
-//         (result, menuItem) => {
-//           result.cumulativeWidth += menuItem.offsetWidth + itemMargin
-
-//           result.cumulativeWidth < maxWidth
-//             ? result.visibleItems.push({
-//                 text: menuItem.text,
-//                 path: menuItem.getAttribute("href"),
-//               })
-//             : result.hiddenItems.push({
-//                 text: menuItem.text,
-//                 path: menuItem.getAttribute("href"),
-//               })
-
-//           return result
-//         },
-//         {
-//           cumulativeWidth: 0,
-//           containerBottomOffset: containerRef.current.getBoundingClientRect()
-//             .bottom,
-//           visibleItems: [],
-//           hiddenItems: [],
-//         }
-//       )
-
-//       const { visibleItems, hiddenItems, containerBottomOffset } = menuResult
-
-//       // Check can we swap the "more" button with the only hidden item
-//       if (hiddenItems.length === 1 && canLastItemFit) {
-//         visibleItems.push(hiddenItems.pop())
-//       }
-
-//       setMenu({ visibleItems, hiddenItems, containerBottomOffset })
-//     }
-
-//     handleResize()
-//     window.addEventListener("resize", handleResize)
-//     return () => {
-//       window.removeEventListener("resize", handleResize)
-//     }
-//   }, [containerRef])
-
-//   return { menu }
-// }
-
 const Nav = ({ menuItems }) => {
   const containerRef = useRef(null)
-  // const [menu, setMenu] = useState({ visibleItems: menuItems, hiddenItems: [] })
-  const [moreOpen, setMoreOpen] = useState(false)
-
-  const handleMoreClick = () => setMoreOpen(true)
-  const handleOutsideClick = () => setMoreOpen(false)
-
+  const [open, setOpen] = useState(false)
   const { menu } = useResponsiveMenu({ containerRef, menuItems })
 
-  // useLayoutEffect(() => {
-  //   const handleResize = () => {
-  //     setMenu({ visibleItems: menuItems, hiddenItems: [] })
+  const isHiddenEmpty = menu.hiddenItems.length === 0
 
-  //     const { offsetWidth: containerWidth } = containerRef.current
-
-  //     // Reserve space for "More" (...) button
-  //     const maxWidth = containerWidth - MORE_BUTTON_WIDTH
-
-  //     const items = containerRef.current.children
-  //     // We assume menu items to share the same margins
-  //     const itemMargin = getElementMargin(items[0])
-
-  //     const { offsetWidth: lastItemWidth } = items[items.length - 1]
-  //     const canLastItemFit = lastItemWidth <= MORE_BUTTON_WIDTH ? true : false
-
-  //     const menuResult = Array.from(items).reduce(
-  //       (result, menuItem) => {
-  //         result.cumulativeWidth += menuItem.offsetWidth + itemMargin
-
-  //         result.cumulativeWidth < maxWidth
-  //           ? result.visibleItems.push({
-  //               text: menuItem.text,
-  //               path: menuItem.getAttribute("href"),
-  //             })
-  //           : result.hiddenItems.push({
-  //               text: menuItem.text,
-  //               path: menuItem.getAttribute("href"),
-  //             })
-
-  //         return result
-  //       },
-  //       {
-  //         cumulativeWidth: 0,
-  //         containerBottomOffset: containerRef.current.getBoundingClientRect()
-  //           .bottom,
-  //         visibleItems: [],
-  //         hiddenItems: [],
-  //       }
-  //     )
-
-  //     const { visibleItems, hiddenItems, containerBottomOffset } = menuResult
-
-  //     // Check can we swap the "more" button with the only hidden item
-  //     if (hiddenItems.length === 1 && canLastItemFit) {
-  //       visibleItems.push(hiddenItems.pop())
-  //     }
-
-  //     setMenu({ visibleItems, hiddenItems, containerBottomOffset })
-  //   }
-
-  //   handleResize()
-  //   window.addEventListener("resize", handleResize)
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize)
-  //   }
-  // }, [])
+  const handleMoreClick = () => setOpen(true)
+  const handleOutsideClick = () => setOpen(false)
 
   return (
     <nav
@@ -305,14 +196,10 @@ const Nav = ({ menuItems }) => {
         overflowX: "auto",
       }}
     >
-      {menu.visibleItems.map(menuItem => (
-        <VisibleNavLink key={menuItem.path} to={menuItem.path}>
-          {menuItem.text}
-        </VisibleNavLink>
-      ))}
-      {!isEmpty(menu.hiddenItems) && <MoreButton onClick={handleMoreClick} />}
-      {!isEmpty(menu.hiddenItems) &&
-        (moreOpen && (
+      <VisibleItems visibleItems={menu.visibleItems} />
+      {!isHiddenEmpty && <MoreButton onClick={handleMoreClick} />}
+      {!isHiddenEmpty &&
+        (open && (
           <HiddenItems menu={menu} handleOutsideClick={handleOutsideClick} />
         ))}
     </nav>
@@ -324,7 +211,8 @@ const Navigation = ({ menuItems }) => {
     <Header
       sx={{
         borderBottom: theme => theme.borders.header,
-        boxShadow: theme => theme.shadows.primary,
+        boxShadow: theme => theme.shadows.header,
+        position: "relative",
       }}
     >
       <Container
@@ -334,15 +222,7 @@ const Navigation = ({ menuItems }) => {
           alignContent: "center",
         }}
       >
-        <Link to="/" sx={{ display: "flex", alignItems: "center" }}>
-          <img
-            src={logo}
-            sx={{
-              height: "logo",
-              width: "auto",
-            }}
-          />
-        </Link>
+        <LogoLink />
         <Nav menuItems={menuItems} />
       </Container>
     </Header>

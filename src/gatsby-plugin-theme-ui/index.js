@@ -26,6 +26,18 @@ const theme = {
       marginRight: 0,
       fontStyle: "italic",
     },
+    h1: {
+      ...tailwind.styles.h1,
+      py: 4,
+    },
+    h2: {
+      ...tailwind.styles.h2,
+      py: 3,
+    },
+    h3: {
+      ...tailwind.styles.h3,
+      py: 1,
+    },
   },
   cards: {
     primary: {
@@ -35,7 +47,7 @@ const theme = {
     },
   },
   shadows: {
-    primary: theme =>
+    header: theme =>
       `0 4px 6px ${theme.colors.indigo[1]}, 0 0 1px rgba(1,0,0,.1)`,
   },
   borders: {

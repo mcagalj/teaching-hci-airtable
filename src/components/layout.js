@@ -39,7 +39,7 @@ const Layout = ({ children }) => {
       <Global
         styles={css({
           "*": {
-            boxSizing: `inherit`,
+            boxSizing: `border-box`,
           },
           body: {
             margin: 0,
