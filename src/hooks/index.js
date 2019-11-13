@@ -69,10 +69,12 @@ export const useResponsiveMenu = ({
             ? result.visibleItems.push({
                 text: menuItem.text,
                 path: menuItem.getAttribute("href"),
+                partiallyActive: menuItem.partiallyActive ? true : false,
               })
             : result.hiddenItems.push({
                 text: menuItem.text,
                 path: menuItem.getAttribute("href"),
+                partiallyActive: menuItem.partiallyActive ? true : false,
               })
 
           return result

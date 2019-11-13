@@ -21,7 +21,7 @@ const theme = {
     ...tailwind.styles,
     blockquote: {
       borderLeft: theme => `5px solid ${theme.colors.accent}`,
-      paddingLeft: 2,
+      paddingLeft: 3,
       marginLeft: 0,
       marginRight: 0,
       fontStyle: "italic",

@@ -14,7 +14,7 @@ published: true
 
 Za efektivno korištenje React.js biblioteke dobro je poznavati moderne funkcionalnosti JavaScript jezika (ES6+). U nastavku ćemo pokazati dio modernih aspekata i funkcionalnosti JavaScript za efektan rad s Reactom.
 
-## Template literals/strings
+### Template literals/strings
 
 [MDN: Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 
@@ -34,7 +34,7 @@ world!`)
 // world!
 ```
 
-### Tagged templates
+#### Tagged templates
 
 ```javascript
 // here we define a tag called "fesb"
@@ -53,9 +53,9 @@ const output = fesb`${who} studies ${what}`;
 console.log(output); // Ivana studies "Computer science" at FESB.
 ```
 
-### Examples in Gatsby and React
+#### Examples in Gatsby and React
 
-#### Graphql tag <!-- omit in toc -->
+##### Graphql tag <!-- omit in toc -->
 
 ```javascript
 import { graphql } from "gatsby"
@@ -73,7 +73,7 @@ export const query = graphql`
 `
 ```
 
-#### Styled components <!-- omit in toc -->
+##### Styled components <!-- omit in toc -->
 
 ```javascript
 import styled from "styled-components"
@@ -114,7 +114,7 @@ Primjena definiranih komponenti:
 </Container>
 ```
 
-## Variable declaration (`var`, `let` and `const`)
+### Variable declaration (`var`, `let` and `const`)
 
 ```javascript
 var name = 'Ivan';
@@ -128,7 +128,7 @@ Tri jednostavna pravila pri deklaraciji varijabli:
   2. Kad god je to moguće koristite `const`.
   3. Koristite `let` kad varijablu želite mijenjati.
 
-## Object initializer
+### Object initializer
 
 [MDN: Object initializer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#New_notations_in_ECMAScript_2015)
 
@@ -162,7 +162,7 @@ const securityService = {
 console.log(securityService) // { isAuthenticated: [Function: isAuthenticated] }
 ```
 
-### Examples in React
+#### Examples in React
 
 ```jsx
   return (
@@ -182,7 +182,7 @@ console.log(securityService) // { isAuthenticated: [Function: isAuthenticated] }
   );
 ```
 
-## Destructuring objects
+### Destructuring objects
 
 [MDN: Destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
 
@@ -238,7 +238,7 @@ const [ime, uloga, sljedbenici] = user;
 console.log(ime, uloga, sljedbenici); // Jean admin 10
 ```
 
-### Examples in React
+#### Examples in React
 
 ```javascript
 const NewQuestionForm = () => {
@@ -250,7 +250,7 @@ const NewQuestionForm = () => {
 }
 ```
 
-## Default parameters
+### Default parameters
 
 [MDN: Default parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)
 
@@ -263,13 +263,13 @@ function printUser({name, role = "user", followers = 0}) {
 printUser(user); // Jean admin 0
 ```
 
-## Rest and spread operators
+### Rest and spread operators
 
 [MDN: Rest parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters)
 
 [MDN: Spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
 
-### Rest
+#### Rest
 
 ```javascript
 function myFun(a, b, ...rest) {
@@ -284,7 +284,7 @@ myFun("one", "two", "three", "four", "five", "six");
 // rest: [three, four, five, six]
 ```
 
-### Spread
+#### Spread
 
 S nizovima: 
 
@@ -312,7 +312,7 @@ const mergedObj = { ...obj1, ...obj2 };
 // Object { foo: "baz", x: 42, y: 13 }
 ```
 
-### Examples in React
+#### Examples in React
 
 ```jsx
 const user = { name: "Jean", role: "admin", followers: 10 };
@@ -350,7 +350,7 @@ function UserContainer(user) {
 }
 ```
 
-## Conditional (ternary) operator
+### Conditional (ternary) operator
 
 [MDN: Conditional (ternary) operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)
 
@@ -368,7 +368,7 @@ if (isAuthenticated) {
 isAuthenticated ? console.log('Welcome!') : console.log('Please login.')
 ```
 
-### Examples in React
+#### Examples in React
 
 ```jsx
 isAdmin ? (
@@ -389,7 +389,7 @@ data && data.length ? (
 )
 ```
 
-## Arrow functions
+### Arrow functions
 
 [MDN: Arrow function expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
 
@@ -431,7 +431,7 @@ const MYARRAY = myarray.map(element => element.toUpperCase());
 console.log(MYARRAY); // ["REACT", "ANGULAR", "VUE"]
 ```
 
-### Examples in React
+#### Examples in React
 
 ```jsx
 const Answers = ({answers}) => (
@@ -461,7 +461,7 @@ const AnswerPane = () => (
 )
 ```
 
-## Arrays
+### Arrays
 
 JavaScript `Array` objekt definira niz vrlo korisnih metoda za rad s nizovima:
 
@@ -522,7 +522,7 @@ result = frontends.reduce(
 console.log(result); // { a: [ 'react', 'angular' ], e: [ 'react', 'vue' ] }
 ```
 
-### Examples in React
+#### Examples in React
 
 ```jsx
 const Answers = ({answers}) => (
@@ -552,11 +552,11 @@ const AnswerPane = () => (
 )
 ```
 
-## JavaScript module system (ES modules)
+### JavaScript module system (ES modules)
 
 ES moduli omogućuju bolju organizaciju/modularizaciju JS koda, odnosno grupiranje povezanih varijabli i funkcija u nezavisne module.
 
-### `export` and `import` statements
+#### `export` and `import` statements
 
 ```javascript
 // provider.js file/module
@@ -576,7 +576,7 @@ hello('Slavko'); // Hello Slavko!
 console.log(2*PI); // 6.28
 ```
 
-### Examples in React
+#### Examples in React
 
 ```javascript
 import React, {useState, useEffect} from 'react';
@@ -584,4 +584,3 @@ import { Link } from 'gatsby';
 import { useMutation, useSubscription } from "@apollo/react-hooks";
 import Button from "@material-ui/core/Button";
 ```
-

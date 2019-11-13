@@ -30,6 +30,7 @@ module.exports = {
       {
         text: "Blog",
         path: "/blog",
+        partiallyActive: true,
       },
       {
         text: "Q&A",

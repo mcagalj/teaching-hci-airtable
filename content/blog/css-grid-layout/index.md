@@ -21,12 +21,6 @@ CSS _[Grid](https://www.mozilla.org/en-US/developer/css-grid/)_ i _[Flexbox](htt
 
 ![CSS Grid Inspector](./images/grid_inspector.png)
 
-## Primjer responzivnog dizajna
-
-[Primjer](index.html) u nastavku testiran je u _Firefox_ pregledniku.
-
-![An example of responsive layout using CSS Grid and Flexbox](./images/grid_based_responsive_layout.gif)
-
 ## Reference
 
 - [Grid by Example by Rachel Andrew](https://gridbyexample.com)

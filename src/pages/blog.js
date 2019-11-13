@@ -39,7 +39,7 @@ export const query = graphql`
             slug
             title
           }
-          excerpt(pruneLength: 120)
+          excerpt(pruneLength: 200)
         }
       }
     }

@@ -36,7 +36,8 @@ const NavLink = ({ ...prop }) => (
   />
 )
 
-const VisibleNavLink = ({ ...prop }) => {
+const VisibleNavLink = ({ partiallyActive, ...prop }) => {
+  console.log(partiallyActive)
   const { theme } = useThemeUI()
 
   return (
@@ -59,11 +60,12 @@ const VisibleNavLink = ({ ...prop }) => {
         color: theme.colors.primaryHover,
         borderBottom: `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
       }}
+      partiallyActive={partiallyActive}
     />
   )
 }
 
-const HiddenNavLink = ({ ...prop }) => {
+const HiddenNavLink = ({ partiallyActive, ...prop }) => {
   const { theme } = useThemeUI()
 
   return (
@@ -84,6 +86,7 @@ const HiddenNavLink = ({ ...prop }) => {
         color: theme.colors.primaryHover,
         borderLeft: `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
       }}
+      partiallyActive={partiallyActive}
     />
   )
 }
@@ -135,7 +138,11 @@ const Triangle = () => (
 
 const VisibleItems = ({ visibleItems }) =>
   visibleItems.map(menuItem => (
-    <VisibleNavLink key={menuItem.path} to={menuItem.path}>
+    <VisibleNavLink
+      key={menuItem.path}
+      to={menuItem.path}
+      partiallyActive={menuItem.partiallyActive}
+    >
       {menuItem.text}
     </VisibleNavLink>
   ))
