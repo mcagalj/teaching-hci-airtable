@@ -1,12 +1,13 @@
 ---
 slug: bits-of-graphql
 title: Howto GraphQL
-date: 2019-11-7
+date: 2019-11-07
 author: MC
 keywords:
   - GraphQL
 banner: ./images/banner.jpg
 bannerCredit: Photo by Riccardo Chiarini on Unsplash
+published: true
 ---
 
 ## Intro

@@ -1,7 +1,7 @@
 ---
 slug: javascript-to-know-for-react
 title: JavaScript za rad s React-om
-date: 2019-11-9
+date: 2019-11-09
 author: MC
 description: JavaScript for React
 keywords:
@@ -9,6 +9,7 @@ keywords:
   - javascript
 banner: ./images/banner.png
 bannerCredit: Photo by MC
+published: true
 ---
 
 Za efektivno korištenje React.js biblioteke dobro je poznavati moderne funkcionalnosti JavaScript jezika (ES6+). U nastavku ćemo pokazati dio modernih aspekata i funkcionalnosti JavaScript za efektan rad s Reactom.

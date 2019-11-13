@@ -9,6 +9,7 @@ keywords:
   - grid layout
 banner: ./images/banner.jpg
 bannerCredit: Photo by Ján Jakub Naništa on Unsplash
+published: true
 ---
 
 ## Intro

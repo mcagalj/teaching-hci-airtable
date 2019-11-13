@@ -1,13 +1,14 @@
 ---
 slug: bits-of-gatsby
 title: Gatsby.js
-date: 2019-11-4
+date: 2019-11-04
 author: MC
 keywords:
     - react
     - progressive web apps
 banner: ./images/banner.jpg
 bannerCredit: Photo by Riccardo Chiarini on Unsplash
+published: true
 ---
 
 ## Intro

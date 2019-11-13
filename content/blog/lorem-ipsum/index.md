@@ -7,6 +7,7 @@ keywords:
     - lorem ipsum
 banner: ./images/banner.jpg
 bannerAuthor: Photo by Geran de Klerk on Unsplash
+published: true
 ---
 
 <!-- markdownlint-disable MD033 -->

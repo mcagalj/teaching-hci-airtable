@@ -1,12 +1,13 @@
 ---
 slug: arrow-functions
 title: Arrow Functions in JavaScript
-date: 2019-11-3
+date: 2019-11-03
 author: MC
 keywords:
     - arrow functions
 banner: ./images/banner.jpg
 bannerAuthor: Photo by MC
+published: true
 ---
 
 ## Arrow Functions in JavaScript

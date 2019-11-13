@@ -1,7 +1,7 @@
 ---
 slug: authenticating-with-github
 title: Authenticating with GitHub
-date: 2019-11-2
+date: 2019-11-02
 author: MC
 keywords:
     - git
@@ -9,6 +9,7 @@ keywords:
     - authentication
 banner: ./images/banner.jpg
 bannerCredit: Photo by MC
+published: true
 ---
 
 ## Authenticating with GitHub Apps
