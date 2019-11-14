@@ -5,9 +5,11 @@ const Title = ({ children, sx, ...props }) => (
   <Styled.h2
     {...props}
     sx={{
-      paddingBottom: [2],
-      borderBottom: theme => `1px solid ${theme.colors.muted}`,
-      color: "indigo.6",
+      my: [2, 4],
+      py: 0,
+      // borderBottom: theme => `1px solid ${theme.colors.accent}`,
+      textAlign: "center",
+      color: "accent",
       ...sx,
     }}
   >

@@ -62,19 +62,21 @@ export const useResponsiveMenu = ({
       const canLastItemFit = lastItemWidth <= spaceForMoreLink ? true : false
 
       const menuResult = Array.from(items).reduce(
-        (result, menuItem) => {
+        (result, menuItem, index) => {
           result.cumulativeWidth += menuItem.offsetWidth + itemMargin
+
+          const { text, path, partiallyActive } = menuItems[index]
 
           result.cumulativeWidth < maxWidth
             ? result.visibleItems.push({
-                text: menuItem.text,
-                path: menuItem.getAttribute("href"),
-                partiallyActive: menuItem.partiallyActive ? true : false,
+                text,
+                path,
+                partiallyActive: !!partiallyActive,
               })
             : result.hiddenItems.push({
-                text: menuItem.text,
-                path: menuItem.getAttribute("href"),
-                partiallyActive: menuItem.partiallyActive ? true : false,
+                text,
+                path,
+                partiallyActive: !!partiallyActive,
               })
 
           return result
