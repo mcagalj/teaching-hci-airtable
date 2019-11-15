@@ -8,11 +8,11 @@ export default ({ posts }) => {
     const { title, date, slug } = post.frontmatter
     return (
       <section key={id} sx={{ mb: [4, 5] }}>
-        <Styled.h4 sx={{ mb: 1 }}>
+        <Styled.h3 sx={{ mb: 1 }}>
           <Styled.a as={Link} to={`/blog/${slug}`}>
             {title}
           </Styled.a>
-        </Styled.h4>
+        </Styled.h3>
         <span sx={{ fontWeight: "body", fontSize: 1, color: "gray.5" }}>
           {date}
         </span>

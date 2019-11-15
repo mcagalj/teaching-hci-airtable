@@ -28,15 +28,23 @@ const theme = {
     },
     h1: {
       ...tailwind.styles.h1,
-      py: 4,
+      fontSize: [4, 4, 5, 6],
+      mt: [4, 5],
     },
     h2: {
       ...tailwind.styles.h2,
-      py: 3,
+      fontSize: [3, 3, 4, 4],
+      mt: [4, 5],
     },
     h3: {
       ...tailwind.styles.h3,
-      py: 1,
+      fontSize: [2, 2, 3, 3],
+      mt: 4,
+    },
+    h4: {
+      ...tailwind.styles.h4,
+      fontSize: [1, 1, 2, 2],
+      mt: 4,
     },
   },
   cards: {
@@ -47,6 +55,7 @@ const theme = {
     },
   },
   shadows: {
+    ...tailwind.shadows,
     header: theme =>
       `0 4px 6px ${theme.colors.indigo[1]}, 0 0 1px rgba(1,0,0,.1)`,
   },
