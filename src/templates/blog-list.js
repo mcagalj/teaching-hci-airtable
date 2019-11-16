@@ -1,33 +1,12 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui"
-import { graphql, Link } from "gatsby"
+import { jsx } from "theme-ui"
+import { graphql } from "gatsby"
 
 import SEO from "../components/seo"
 import Layout from "../components/layout"
 import BlogExcerpt from "../components/blog-excerpt"
+import BlogNav from "../components/blog-navigation"
 
-const BlogListLink = ({ ...prop }) => (
-  <Link
-    {...prop}
-    sx={{
-      display: "inline-block",
-      px: 3,
-      color: "primary",
-      backgroundColor: "indigo.1",
-      textDecoration: "none",
-      textTransform: "uppercase",
-      fontWeight: "light",
-      lineHeight: "navLink",
-      whiteSpace: "nowrap",
-      letterSpacing: "tight",
-      transition: "all 0.25s linear",
-      "&:hover": {
-        color: "white",
-        backgroundColor: "blue.9",
-      },
-    }}
-  />
-)
 const BlogList = ({
   pageContext,
   data: {
@@ -48,18 +27,17 @@ const BlogList = ({
       <h1>Blog posts</h1>
       <BlogExcerpt posts={posts} />
 
-      <nav
-        sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}
-      >
-        <div sx={{ width: "50%" }}>
+      <BlogNav>
+        <BlogNav.Previous>
           {!isFirst && (
-            <BlogListLink to={previousPage}>Previous Page</BlogListLink>
+            <BlogNav.Link to={previousPage}>Previous Page</BlogNav.Link>
           )}
-        </div>
-        <div sx={{ width: "50%", textAlign: "right" }}>
-          {!isLast && <BlogListLink to={nextPage}>Next Page</BlogListLink>}
-        </div>
-      </nav>
+        </BlogNav.Previous>
+
+        <BlogNav.Next>
+          {!isLast && <BlogNav.Link to={nextPage}>Next Page</BlogNav.Link>}
+        </BlogNav.Next>
+      </BlogNav>
     </Layout>
   )
 }

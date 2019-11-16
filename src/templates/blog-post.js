@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { graphql, Link } from "gatsby"
-import { Styled } from "theme-ui"
+import { graphql } from "gatsby"
 
 import SEO from "../components/seo"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import Layout from "../components/layout"
 import Title from "../components/title"
+import BlogNav from "../components/blog-navigation"
 
 export default ({ pageContext, data }) => {
   const { post } = data
@@ -20,18 +20,24 @@ export default ({ pageContext, data }) => {
         {post.frontmatter.date}
       </span>
       <MDXRenderer>{post.body}</MDXRenderer>
-      <div sx={{ display: "flex", justifyContent: "space-between" }}>
-        {previous && (
-          <Link to={`blog/${previous.frontmatter.slug}`}>
-            Previous: {previous.frontmatter.title}
-          </Link>
-        )}
-        {next && (
-          <Link to={`blog/${next.frontmatter.slug}`}>
-            Next: {next.frontmatter.title}
-          </Link>
-        )}
-      </div>
+
+      <BlogNav>
+        <BlogNav.Previous>
+          {previous && (
+            <BlogNav.Link to={`blog/${previous.frontmatter.slug}`}>
+              &larr; {previous.frontmatter.title}
+            </BlogNav.Link>
+          )}
+        </BlogNav.Previous>
+
+        <BlogNav.Next>
+          {next && (
+            <BlogNav.Link to={`blog/${next.frontmatter.slug}`}>
+              {next.frontmatter.title} &rarr;
+            </BlogNav.Link>
+          )}
+        </BlogNav.Next>
+      </BlogNav>
     </Layout>
   )
 }
