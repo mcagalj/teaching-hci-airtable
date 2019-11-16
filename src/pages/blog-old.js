@@ -1,9 +1,10 @@
 import React from "react"
 import { Styled } from "theme-ui"
+import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import BlogIndex from "../components/blog-index"
+import BlogExcerpt from "../components/blog-excerpt"
 
 const Blog = ({
   data: {
@@ -14,7 +15,7 @@ const Blog = ({
     <Layout>
       <SEO title="Blog" />
       <h1>Blog posts</h1>
-      <BlogIndex posts={posts} />
+      <BlogExcerpt posts={posts} />
     </Layout>
   )
 }
@@ -22,7 +23,7 @@ const Blog = ({
 export default Blog
 
 export const query = graphql`
-  query BlogIndex {
+  query BlogIndexOld {
     allMdx(
       sort: { fields: [frontmatter___date], order: DESC }
       filter: {

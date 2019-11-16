@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import { Styled } from "theme-ui"
 
 import SEO from "../components/seo"
@@ -8,8 +8,10 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import Layout from "../components/layout"
 import Title from "../components/title"
 
-export default ({ data }) => {
+export default ({ pageContext, data }) => {
   const { post } = data
+  const { previous, next } = pageContext
+
   return (
     <Layout>
       <SEO title={post.frontmatter.title} />
@@ -18,6 +20,18 @@ export default ({ data }) => {
         {post.frontmatter.date}
       </span>
       <MDXRenderer>{post.body}</MDXRenderer>
+      <div sx={{ display: "flex", justifyContent: "space-between" }}>
+        {previous && (
+          <Link to={`blog/${previous.frontmatter.slug}`}>
+            Previous: {previous.frontmatter.title}
+          </Link>
+        )}
+        {next && (
+          <Link to={`blog/${next.frontmatter.slug}`}>
+            Next: {next.frontmatter.title}
+          </Link>
+        )}
+      </div>
     </Layout>
   )
 }

@@ -8,7 +8,7 @@ const Title = ({ children, sx, ...props }) => (
       ...sx,
       py: 0,
       // borderBottom: theme => `1px solid ${theme.colors.accent}`,
-      color: "accent",
+      color: "primary",
     }}
   >
     {children}

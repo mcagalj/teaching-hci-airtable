@@ -77,7 +77,7 @@ const IndexPage = ({ data }) => {
                   />
                   <p sx={{ mt: 1, mb: 0 }}>
                     by{" "}
-                    <span sx={{ fontWeight: "medium", color: "#f50057" }}>
+                    <span sx={{ fontWeight: "medium", color: "accent" }}>
                       {author}
                     </span>
                   </p>

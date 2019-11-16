@@ -13,6 +13,10 @@ const theme = {
     ...tailwind.colors,
     accent: "#f50057",
   },
+  lineHeights: {
+    ...tailwind.lineHeights,
+    navLink: 3,
+  },
   fontWeights: {
     ...tailwind.fontWeights,
     heading: "500",
