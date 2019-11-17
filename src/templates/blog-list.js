@@ -5,7 +5,7 @@ import { graphql } from "gatsby"
 import SEO from "../components/seo"
 import Layout from "../components/layout"
 import BlogExcerpt from "../components/blog-excerpt"
-import BlogNav from "../components/blog-navigation"
+import BlogNav, { leftArrow, rightArrow } from "../components/blog-navigation"
 
 const BlogList = ({
   pageContext,
@@ -30,12 +30,16 @@ const BlogList = ({
       <BlogNav>
         <BlogNav.Previous>
           {!isFirst && (
-            <BlogNav.Link to={previousPage}>Previous Page</BlogNav.Link>
+            <BlogNav.Link to={previousPage}>
+              {leftArrow} Previous Page
+            </BlogNav.Link>
           )}
         </BlogNav.Previous>
 
         <BlogNav.Next>
-          {!isLast && <BlogNav.Link to={nextPage}>Next Page</BlogNav.Link>}
+          {!isLast && (
+            <BlogNav.Link to={nextPage}>Next Page {rightArrow}</BlogNav.Link>
+          )}
         </BlogNav.Next>
       </BlogNav>
     </Layout>

@@ -2,7 +2,7 @@
 import { jsx, Styled } from "theme-ui"
 import { Grid, Card } from "@theme-ui/components"
 
-import React from "react"
+import React, { Children } from "react"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import BackgroundImage from "gatsby-background-image"
@@ -60,7 +60,8 @@ const IndexPage = ({ data }) => {
         </Grid>
 
         <h2>Galerija</h2>
-        <Grid gap={[4]} columns={[1, 2, 2, 3]}>
+
+        <Grid gap={[4]} columns={[1, 2, null, 3]}>
           {imageFiles.images.map(({ image }, index) => {
             const author = image.base
               .split("-")
@@ -119,7 +120,7 @@ export const query = graphql`
           id
           base
           sharp: childImageSharp {
-            fluid(maxWidth: 250, traceSVG: { color: "#c3dafe" }) {
+            fluid(maxWidth: 400, traceSVG: { color: "#c3dafe" }) {
               ...GatsbyImageSharpFluid
             }
           }

@@ -6,7 +6,7 @@ import SEO from "../components/seo"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import Layout from "../components/layout"
 import Title from "../components/title"
-import BlogNav from "../components/blog-navigation"
+import BlogNav, { leftArrow, rightArrow } from "../components/blog-navigation"
 
 export default ({ pageContext, data }) => {
   const { post } = data
@@ -25,7 +25,7 @@ export default ({ pageContext, data }) => {
         <BlogNav.Previous>
           {previous && (
             <BlogNav.Link to={`blog/${previous.frontmatter.slug}`}>
-              &larr; {previous.frontmatter.title}
+              {leftArrow} {previous.frontmatter.title}
             </BlogNav.Link>
           )}
         </BlogNav.Previous>
@@ -33,7 +33,9 @@ export default ({ pageContext, data }) => {
         <BlogNav.Next>
           {next && (
             <BlogNav.Link to={`blog/${next.frontmatter.slug}`}>
-              {next.frontmatter.title} &rarr;
+              <span>
+                {next.frontmatter.title} {rightArrow}
+              </span>
             </BlogNav.Link>
           )}
         </BlogNav.Next>
