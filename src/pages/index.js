@@ -1,20 +1,29 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 import { Grid, Card } from "@theme-ui/components"
+import React from "react"
 
-import React, { Children } from "react"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import BackgroundImage from "gatsby-background-image"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
+import matchSorter from "match-sorter"
+
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Container from "../components/container"
 import Lecturers from "../components/lecturers"
+import FilteredGallery from "../components/filtered-gallery"
 
 const IndexPage = ({ data }) => {
   const { heroImage, contact, imageFiles } = data
+
+  console.log(imageFiles)
+  const filteredImages = matchSorter(imageFiles.images, "fab", {
+    keys: ["image.base"],
+  })
+  console.log(filteredImages)
 
   return (
     <>
@@ -60,6 +69,8 @@ const IndexPage = ({ data }) => {
         </Grid>
 
         <h2>Galerija</h2>
+
+        <FilteredGallery sx={{ my: 3 }} />
 
         <Grid gap={[4]} columns={[1, 2, null, 3]}>
           {imageFiles.images.map(({ image }, index) => {
