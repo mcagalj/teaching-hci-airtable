@@ -5,6 +5,38 @@
  */
 const path = require(`path`)
 
+// const { createRemoteFileNode } = require(`gatsby-source-filesystem`)
+
+// exports.onCreateNode = async ({
+//   node,
+//   actions,
+//   store,
+//   cache,
+//   createNodeId,
+// }) => {
+//   const { createNode, createNodeField } = actions
+
+//   if (node.internal.type !== null && node.internal.type === "StrapiProduct") {
+//     for (const image of node.image) {
+//       const imageNode = await createRemoteFileNode({
+//         url: `http://localhost:1337${image.url}`,
+//         store,
+//         cache,
+//         createNode,
+//         createNodeId,
+//       })
+
+//       if (imageNode) {
+//         createNodeField({
+//           node,
+//           name: `image___NODE`,
+//           value: imageNode.id,
+//         })
+//       }
+//     }
+//   }
+// }
+
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions
   const blogList = path.resolve(`./src/templates/blog-list.js`)
