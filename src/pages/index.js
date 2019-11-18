@@ -19,12 +19,6 @@ import FilteredGallery from "../components/filtered-gallery"
 const IndexPage = ({ data }) => {
   const { heroImage, contact, imageFiles } = data
 
-  console.log(imageFiles)
-  const filteredImages = matchSorter(imageFiles.images, "fab", {
-    keys: ["image.base"],
-  })
-  console.log(filteredImages)
-
   return (
     <>
       <BackgroundImage
@@ -69,35 +63,7 @@ const IndexPage = ({ data }) => {
         </Grid>
 
         <h2>Galerija</h2>
-
-        <FilteredGallery sx={{ my: 3 }} />
-
-        <Grid gap={[4]} columns={[1, 2, null, 3]}>
-          {imageFiles.images.map(({ image }, index) => {
-            const author = image.base
-              .split("-")
-              .slice(0, -2)
-              .map(item => item.charAt(0).toUpperCase() + item.slice(1))
-              .join(" ")
-
-            return (
-              author && (
-                <Card key={image.id}>
-                  <Img
-                    key={image.id}
-                    fluid={{ ...image.sharp.fluid, aspectRatio: 21 / 15 }}
-                  />
-                  <p sx={{ mt: 1, mb: 0 }}>
-                    by{" "}
-                    <span sx={{ fontWeight: "medium", color: "accent" }}>
-                      {author}
-                    </span>
-                  </p>
-                </Card>
-              )
-            )
-          })}
-        </Grid>
+        <FilteredGallery images={imageFiles.images} sx={{ my: 3 }} />
 
         <h2>Kontakt</h2>
         <MDXRenderer>{contact.body}</MDXRenderer>
