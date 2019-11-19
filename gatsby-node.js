@@ -41,7 +41,9 @@ exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions
   const blogList = path.resolve(`./src/templates/blog-list.js`)
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
+  const productTemplate = path.resolve(`./src/templates/product.js`)
 
+  // blog post
   const {
     data: {
       allMdx: { posts },
@@ -61,6 +63,22 @@ exports.createPages = async ({ actions, graphql }) => {
               slug
               title
             }
+          }
+        }
+      }
+    }
+  `)
+
+  const {
+    data: {
+      allStrapiProduct: { products },
+    },
+  } = await graphql(`
+    query StrapiProductQuery {
+      allStrapiProduct {
+        products: edges {
+          product: node {
+            id
           }
         }
       }
@@ -103,6 +121,17 @@ exports.createPages = async ({ actions, graphql }) => {
         skip: index * postsPerPage,
         numPages,
         currentPage: index + 1,
+      },
+    })
+  })
+
+  // Create product pages
+  products.forEach(({ product }, index) => {
+    createPage({
+      path: `/products/${product.id}`,
+      component: productTemplate,
+      context: {
+        id: product.id,
       },
     })
   })

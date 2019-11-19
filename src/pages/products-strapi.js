@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import { Grid, Card } from "@theme-ui/components"
+import { Grid, Card, Badge, Heading, Button, Flex } from "@theme-ui/components"
 import React from "react"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
@@ -13,26 +13,66 @@ const Products = ({ data: { allStrapiProduct } }) => {
 
   return (
     <Layout>
-      <SEO title="Products - Strapi" />
-      <h1>Products (sourced from Strapi)</h1>
+      <SEO title="Products" />
+      <h1 sx={{ my: [3, 4] }}>Products (statically sourced from Strapi)</h1>
 
-      <Grid gap={[4]} columns={[1, 2, null, 3]}>
+      <Grid gap={[5]} columns={[1, 2]}>
         {products.map(({ product }, index) => {
-          console.log(product)
+          const { id, categories, credited_image } = product
+
+          // credited_image is array
+          // (at the moment we take only the first item)
+          const { credit, image } = credited_image[0]
+
           return (
-            <Card key={product.id}>
-              <Img
-                fluid={{
-                  ...product.image.credited_image.sharp.fluid,
-                  aspectRatio: 21 / 15,
-                }}
-              />
-              <p sx={{ mt: 1, mb: 0 }}>
-                by{" "}
-                <span sx={{ fontWeight: "medium", color: "accent" }}>
-                  {product.name}
-                </span>
-              </p>
+            <Card key={id} variant="secondary">
+              <div sx={{ position: "relative" }}>
+                <Img
+                  fluid={{
+                    ...image.sharp.fluid,
+                    aspectRatio: 21 / 15,
+                  }}
+                />
+                <Badge
+                  sx={{ position: "absolute", top: 1, left: 1, bg: "gray.7" }}
+                >
+                  ${product.price}
+                </Badge>
+                <p
+                  sx={{
+                    position: "absolute",
+                    left: 1,
+                    bottom: 1,
+                    fontSize: 0,
+                    bg: "light",
+                    color: "textMuted",
+                    m: 0,
+                    px: 2,
+                  }}
+                >
+                  {credit}
+                </p>
+              </div>
+
+              <Heading sx={{ my: 3 }}>{product.name}</Heading>
+              <Flex
+                sx={{ justifyContent: "space-between", alignItems: "flex-end" }}
+              >
+                {categories.map(({ name, id }) => (
+                  <Badge
+                    key={id}
+                    sx={{
+                      bg: "primary",
+                      color: "white",
+                    }}
+                  >
+                    {name}
+                  </Badge>
+                ))}
+                <Button sx={{ backgroundColor: "accent" }}>
+                  Add to cart (${product.price})
+                </Button>
+              </Flex>
             </Card>
           )
         })}
@@ -43,31 +83,31 @@ const Products = ({ data: { allStrapiProduct } }) => {
 
 export default Products
 
-// export const query = graphql`
-//   query ProductQuery {
-//     allStrapiProduct {
-//       products: edges {
-//         product: node {
-//           id
-//           name
-//           description
-//           price
-//           image {
-//             credit
-//             credited_image {
-//               sharp: childImageSharp {
-//                 fluid(maxWidth: 400, traceSVG: { color: "#c3dafe" }) {
-//                   ...GatsbyImageSharpFluid
-//                 }
-//               }
-//             }
-//           }
-//           categories {
-//             id
-//             name
-//           }
-//         }
-//       }
-//     }
-//   }
-// `
+export const query = graphql`
+  query ProductsQuery {
+    allStrapiProduct {
+      products: edges {
+        product: node {
+          id
+          credited_image {
+            credit
+            image {
+              sharp: childImageSharp {
+                fluid(maxWidth: 400, traceSVG: { color: "#c3dafe" }) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+          }
+          categories {
+            name
+            id
+          }
+          name
+          price
+          description
+        }
+      }
+    }
+  }
+`

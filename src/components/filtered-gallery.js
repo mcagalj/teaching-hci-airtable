@@ -58,7 +58,7 @@ const FilteredGallery = ({ images = [], ...prop }) => {
             type="search"
             placeholder="Search authors"
             ref={inputRef}
-            autoFocus={true}
+            // autoFocus={true}
             onChange={debounce(() => setSearch(inputRef.current.value), 200)}
             sx={{
               py: 2,

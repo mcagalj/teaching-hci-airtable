@@ -52,10 +52,12 @@ const theme = {
     },
   },
   cards: {
-    primary: {
-      // padding: 2,
-      // borderRadius: 2,
-      // boxShadow: theme => `0 0 8px ${theme.colors.indigo[2]}`,
+    primary: {},
+
+    secondary: {
+      padding: 2,
+      borderRadius: 4,
+      boxShadow: theme => `0 0 8px ${theme.colors.muted}`,
     },
   },
   shadows: {
