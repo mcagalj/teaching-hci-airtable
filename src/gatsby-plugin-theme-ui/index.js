@@ -51,13 +51,34 @@ const theme = {
       mt: 4,
     },
   },
+  buttons: {
+    ...tailwind.buttons.primary,
+    secondary: {
+      bg: "accent",
+      borderRadius: 0,
+    },
+  },
   cards: {
     primary: {},
 
     secondary: {
       padding: 2,
-      borderRadius: 4,
+      borderRadius: 0,
       boxShadow: theme => `0 0 8px ${theme.colors.muted}`,
+    },
+  },
+  badges: {
+    priceTag: {
+      bg: "gray.7",
+      borderRadius: 0,
+      fontWeight: "semibold",
+    },
+    outline: {
+      bg: "transparent",
+      borderRadius: 0,
+      boxShadow: "inset 0 0 0 1px",
+      color: "gray.7",
+      fontWeight: "normal",
     },
   },
   shadows: {

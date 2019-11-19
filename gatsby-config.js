@@ -8,6 +8,11 @@ module.exports = {
         path: "/",
       },
       {
+        text: "Products",
+        path: "/products",
+        partiallyActive: true,
+      },
+      {
         text: "Predavanja",
         path: "/predavanja",
       },

@@ -2,7 +2,7 @@
 import { jsx, Styled } from "theme-ui"
 import { Grid, Card, Badge, Heading, Button, Flex } from "@theme-ui/components"
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import Img from "gatsby-image"
 
 import Layout from "../components/layout"
@@ -27,14 +27,28 @@ const Products = ({ data: { allStrapiProduct } }) => {
           return (
             <Card key={id} variant="secondary">
               <div sx={{ position: "relative" }}>
-                <Img
-                  fluid={{
-                    ...image.sharp.fluid,
-                    aspectRatio: 21 / 15,
+                <Link
+                  to={`/products/${id}`}
+                  sx={{
+                    ":hover > div": {
+                      filter: "opacity(0.8)",
+                    },
                   }}
-                />
+                >
+                  <Img
+                    fluid={{
+                      ...image.sharp.fluid,
+                      aspectRatio: 21 / 15,
+                    }}
+                  />
+                </Link>
                 <Badge
-                  sx={{ position: "absolute", top: 1, left: 1, bg: "gray.7" }}
+                  variant="priceTag"
+                  sx={{
+                    position: "absolute",
+                    top: 1,
+                    left: 1,
+                  }}
                 >
                   ${product.price}
                 </Badge>
@@ -54,22 +68,16 @@ const Products = ({ data: { allStrapiProduct } }) => {
                 </p>
               </div>
 
-              <Heading sx={{ my: 3 }}>{product.name}</Heading>
+              <Heading sx={{ my: 2 }}>{product.name}</Heading>
               <Flex
                 sx={{ justifyContent: "space-between", alignItems: "flex-end" }}
               >
                 {categories.map(({ name, id }) => (
-                  <Badge
-                    key={id}
-                    sx={{
-                      bg: "primary",
-                      color: "white",
-                    }}
-                  >
+                  <Badge key={id} variant="outline">
                     {name}
                   </Badge>
                 ))}
-                <Button sx={{ backgroundColor: "accent" }}>
+                <Button variant="secondary">
                   Add to cart (${product.price})
                 </Button>
               </Flex>
