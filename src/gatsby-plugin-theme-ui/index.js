@@ -52,10 +52,21 @@ const theme = {
     },
   },
   buttons: {
-    ...tailwind.buttons.primary,
+    primary: { ...tailwind.buttons.primary },
     secondary: {
+      cursor: "pointer",
       bg: "accent",
       borderRadius: 0,
+    },
+    checkbox: {
+      display: "flex",
+      cursor: "pointer",
+      justifyContent: "space-between",
+      alignItems: "center",
+      bg: "transparent",
+      color: "textMuted",
+      textAlign: "left",
+      p: 0,
     },
   },
   cards: {
@@ -70,15 +81,23 @@ const theme = {
   badges: {
     priceTag: {
       bg: "gray.7",
-      borderRadius: 0,
+      borderRadius: 3,
       fontWeight: "semibold",
     },
     outline: {
       bg: "transparent",
-      borderRadius: 0,
-      boxShadow: "inset 0 0 0 1px",
-      color: "gray.7",
+      borderRadius: 3,
+      boxShadow: theme => `inset 0 0 0 1px ${theme.colors.textMuted}`,
+      color: "textMuted",
       fontWeight: "normal",
+    },
+  },
+  forms: {
+    checkbox: {
+      "input:focus ~ &": {
+        color: "accent",
+        bg: "transparent",
+      },
     },
   },
   shadows: {
