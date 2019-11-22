@@ -58,15 +58,14 @@ const theme = {
       bg: "accent",
       borderRadius: 0,
     },
-    checkbox: {
-      display: "flex",
+    resetFilters: {
+      color: "primary",
       cursor: "pointer",
-      justifyContent: "space-between",
-      alignItems: "center",
-      bg: "transparent",
-      color: "textMuted",
-      textAlign: "left",
-      p: 0,
+      bg: "gray.2",
+      borderRadius: 0,
+      "&:hover": {
+        color: "primaryHover",
+      },
     },
   },
   cards: {

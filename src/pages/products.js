@@ -18,16 +18,28 @@ import Img from "gatsby-image"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-const CategoryFilter = ({ categories, filter, setFilter }) => {
+const CategoryFilter = ({ categories, filters, setFilters }) => {
   const handleFilterClick = name =>
-    setFilter(filterList =>
-      filterList.includes(name)
-        ? filterList.filter(item => item !== name)
-        : [...filterList, name]
+    setFilters(filters =>
+      filters.includes(name)
+        ? filters.filter(item => item !== name)
+        : [...filters, name]
     )
 
   return (
-    <Flex sx={{ flexDirection: "column", mb: 4 }}>
+    <Flex sx={{ flexDirection: "column", alignItems: "flex-start", mb: 4 }}>
+      <Button
+        variant="resetFilters"
+        sx={{
+          mb: 3,
+          py: 1,
+          visibility: filters.length === 0 ? "hidden" : "visible",
+        }}
+        onClick={() => setFilters([])}
+      >
+        &times; Clear Filters
+      </Button>
+
       <Heading
         as="h3"
         sx={{ mb: 2, color: "textMuted", textTransform: "uppercase" }}
@@ -35,53 +47,59 @@ const CategoryFilter = ({ categories, filter, setFilter }) => {
         Category
       </Heading>
       <Flex>
-        {categories.map(category => (
-          <Box key={category.id} sx={{ mr: 4 }}>
-            <Label
-              sx={{
-                // Somewhat an ugly hack
-                "&:hover *": {
-                  color: "accent",
-                  cursor: "pointer",
-                },
-                "& *": {
-                  color: filter.includes(category.name)
-                    ? "accent"
-                    : "textMuted",
-                },
-              }}
-              onChange={() => handleFilterClick(category.name)}
-            >
-              <Checkbox defaultChecked={false} />
-              <span>{category.name}</span>
-            </Label>
-          </Box>
-        ))}
+        {categories.map(category => {
+          const checked = useMemo(() => filters.includes(category.name), [
+            filters,
+          ])
+
+          return (
+            <Box key={category.id} sx={{ mr: 4 }}>
+              <Label
+                sx={{
+                  // Somewhat an ugly hack
+                  "&:hover *": {
+                    color: "accent",
+                    cursor: "pointer",
+                  },
+                  "& *": {
+                    color: checked ? "accent" : "textMuted",
+                  },
+                }}
+              >
+                <Checkbox
+                  checked={checked}
+                  onChange={() => handleFilterClick(category.name)}
+                />
+                <span>{category.name}</span>
+              </Label>
+            </Box>
+          )
+        })}
       </Flex>
     </Flex>
   )
 }
 
-const FilteredProducts = ({ products, filter }) => (
+const FilteredProducts = ({ products, filters }) => (
   <>
     {products.map(({ product }, index) => {
       const { id, categories, credited_image } = product
 
       // processing categories (extracting category names)
       // this is a one-time job, hence useMemo hook.
-      const productCategories = React.useMemo(
+      const productCategories = useMemo(
         () => categories.map(({ name }) => name),
         [categories]
       )
 
-      const filterHit = React.useMemo(
+      const filterHit = useMemo(
         () =>
-          filter.length === 0
+          filters.length === 0
             ? true
             : productCategories.some(productCategory =>
-                filter.includes(productCategory)
+                filters.includes(productCategory)
               ),
-        [filter]
+        [filters]
       )
 
       if (!filterHit) return null
@@ -155,7 +173,7 @@ const Products = ({ data: { allStrapiProduct, allStrapiCategory } }) => {
   const { products } = allStrapiProduct
   const { categories } = allStrapiCategory
 
-  const [filter, setFilter] = useState([])
+  const [filters, setFilters] = useState([])
 
   return (
     <Layout>
@@ -164,12 +182,12 @@ const Products = ({ data: { allStrapiProduct, allStrapiCategory } }) => {
 
       <CategoryFilter
         categories={categories}
-        filter={filter}
-        setFilter={setFilter}
+        filters={filters}
+        setFilters={setFilters}
       />
 
       <Grid gap={[5]} columns={[1, 2]}>
-        <FilteredProducts products={products} filter={filter} />
+        <FilteredProducts products={products} filters={filters} />
       </Grid>
     </Layout>
   )
