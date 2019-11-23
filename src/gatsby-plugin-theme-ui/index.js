@@ -99,6 +99,12 @@ const theme = {
       },
     },
   },
+  alerts: {
+    error: {
+      borderRadius: 0,
+      bg: "accent",
+    },
+  },
   shadows: {
     ...tailwind.shadows,
     header: theme =>
