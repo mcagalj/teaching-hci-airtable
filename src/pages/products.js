@@ -64,7 +64,7 @@ export const query = graphql`
     allStrapiProduct {
       products: edges {
         product: node {
-          id
+          id: strapiId
           credited_image {
             credit
             image {

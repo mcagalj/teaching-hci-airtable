@@ -1,15 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import React from "react"
-import {
-  Box,
-  Card,
-  Badge,
-  Heading,
-  Button,
-  Flex,
-  Spinner,
-} from "@theme-ui/components"
+import { Box, Card, Badge, Heading, Button, Flex } from "@theme-ui/components"
 import { Link } from "gatsby"
 import Img from "gatsby-image"
 import ReactImg from "react-image"
@@ -91,8 +83,9 @@ const ProductCard = ({
       <Link
         to={`/${pathPrefix}/${id}`}
         sx={{
-          ":hover > *": {
-            filter: "opacity(0.5)",
+          "&:hover img": {
+            filter: "brightness(0.9)",
+            transition: "all 0.25s ease-in-out !important",
           },
         }}
       >

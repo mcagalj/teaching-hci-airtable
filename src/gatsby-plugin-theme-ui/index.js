@@ -114,6 +114,10 @@ const theme = {
     },
   },
   alerts: {
+    info: {
+      borderRadius: 0,
+      bg: "info",
+    },
     error: {
       borderRadius: 0,
       bg: "accent",

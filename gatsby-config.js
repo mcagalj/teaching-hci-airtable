@@ -13,25 +13,29 @@ module.exports = {
         partiallyActive: true,
       },
       {
-        text: "Predavanja",
-        path: "/predavanja",
+        text: "Dynamic content",
+        path: "/content-dynamic",
       },
+      // {
+      //   text: "Predavanja",
+      //   path: "/predavanja",
+      // },
       {
-        text: "Predavanja MDX",
+        text: "Predavanja",
         path: "/predavanja-1",
       },
-      {
-        text: "Projekti",
-        path: "/projekti",
-      },
-      {
-        text: "Rezultati",
-        path: "/rezultati",
-      },
-      {
-        text: "Ocjenjivanje",
-        path: "/ocjenjivanje",
-      },
+      // {
+      //   text: "Projekti",
+      //   path: "/projekti",
+      // },
+      // {
+      //   text: "Rezultati",
+      //   path: "/rezultati",
+      // },
+      // {
+      //   text: "Ocjenjivanje",
+      //   path: "/ocjenjivanje",
+      // },
       {
         text: "Blog",
         path: "/blog",

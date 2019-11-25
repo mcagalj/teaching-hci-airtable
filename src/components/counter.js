@@ -27,7 +27,6 @@ import { jsx } from "theme-ui"
 const Counter = ({ children, sx, ...props }) => (
   <div
     sx={{
-      my: 5,
       counterReset: "counter",
       paddingLeft: `calc(${props.width} + ${props.rightMargin})`,
 

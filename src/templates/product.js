@@ -59,9 +59,9 @@ const Product = ({ data: { product } }) => {
 export default Product
 
 export const query = graphql`
-  query ProductQuery($id: String!) {
-    product: strapiProduct(id: { eq: $id }) {
-      id
+  query ProductQuery($id: Int!) {
+    product: strapiProduct(strapiId: { eq: $id }) {
+      id: strapiId
       name
       price
       description

@@ -78,7 +78,7 @@ exports.createPages = async ({ actions, graphql }) => {
       allStrapiProduct {
         products: edges {
           product: node {
-            id
+            id: strapiId
           }
         }
       }
