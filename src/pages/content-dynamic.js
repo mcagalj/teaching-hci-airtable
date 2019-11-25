@@ -2,6 +2,7 @@
 import { jsx } from "theme-ui"
 import React, { useState, useMemo } from "react"
 import { Alert, Close, Box, Grid, Card, Flex } from "@theme-ui/components"
+import { Router, navigate } from "@reach/router"
 import { gql } from "apollo-boost"
 import { useQuery } from "@apollo/react-hooks"
 
@@ -80,21 +81,19 @@ const FilteredProducts = ({ products, filters }) => (
   </>
 )
 
-const DynamicContent = () => {
+const ProductList = () => {
   const { loading, error, data } = useQuery(PRODUCTS)
   const [filters, setFilters] = useState([])
 
   return (
-    <Layout>
+    <>
       <SEO title="Dynamic content" />
       <h1 sx={{ my: [3, 4] }}>Dynamically loading content</h1>
-
       {loading && (
         <Grid gap={[4, 4, 4, 5]} columns={[1, 2]}>
           <ProductCardsPlaceholder />
         </Grid>
       )}
-
       {data && (
         <>
           <Alert variant="info">NOTE: The images are not optimized.</Alert>
@@ -108,13 +107,52 @@ const DynamicContent = () => {
           </Grid>
         </>
       )}
-
       {error && (
         <Alert variant="error">
           Error loading data. Please check if your server is up and running.
           <Close ml="auto" mr={-2} sx={{ height: "auto", width: "auto" }} />
         </Alert>
       )}
+    </>
+  )
+}
+
+const ProductDetails = ({ id }) => {
+  const { loading, error, data } = useQuery(
+    gql`
+      query Product($id: ID!) {
+        product(id: $id) {
+          name
+          id
+          price
+          description
+        }
+      }
+    `,
+    { variables: { id } }
+  )
+
+  return (
+    <>
+      {loading && <h1>Loading...</h1>}
+      {data && (
+        <>
+          <h1>{data.product.name}</h1>
+          <Alert variant="info">NOTE: The images are not optimized.</Alert>
+        </>
+      )}
+      {error && <Alert variant="error">Error fetching product {id}</Alert>}
+    </>
+  )
+}
+
+const DynamicContent = () => {
+  return (
+    <Layout>
+      <Router basepath="/content-dynamic">
+        <ProductList exact path="/" />
+        <ProductDetails exact path=":id" />
+      </Router>
     </Layout>
   )
 }

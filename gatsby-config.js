@@ -15,6 +15,7 @@ module.exports = {
       {
         text: "Dynamic content",
         path: "/content-dynamic",
+        partiallyActive: true,
       },
       // {
       //   text: "Predavanja",
@@ -152,6 +153,10 @@ module.exports = {
         ],
         queryLimit: 1000,
       },
+    },
+    {
+      resolve: `gatsby-plugin-create-client-paths`,
+      options: { prefixes: [`/content-dynamic/*`] },
     },
     {
       resolve: `gatsby-plugin-manifest`,
