@@ -1,8 +1,82 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { Card, Badge, Heading, Button, Flex } from "@theme-ui/components"
+import React from "react"
+import {
+  Box,
+  Card,
+  Badge,
+  Heading,
+  Button,
+  Flex,
+  Spinner,
+} from "@theme-ui/components"
 import { Link } from "gatsby"
 import Img from "gatsby-image"
+import ReactImg from "react-image"
+
+// This component is a container (mainly for images)
+// responsible for maintaining the desired
+// aspect ratio.
+// Default aspect ratio: 21 / 15 = 1.4
+const ImageContainer = ({ children, aspectRatio = 1.4 }) => (
+  <div sx={{ position: "relative", overflow: "hidden" }}>
+    <div
+      sx={{
+        width: "100%",
+        paddingBottom: `${100 / aspectRatio}%`,
+      }}
+    />
+    {React.isValidElement(children)
+      ? React.cloneElement(children, {
+          style: {
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            top: 0,
+            left: 0,
+            objectFit: "cover",
+            objectPosition: "center center",
+          },
+        })
+      : null}
+  </div>
+)
+
+const ProductImage = ({ image, credit = "" }) => {
+  if (image) {
+    return image.sharp ? (
+      <Img
+        fluid={{
+          ...image.sharp.fluid,
+          aspectRatio: 21 / 15,
+        }}
+      />
+    ) : (
+      <ImageContainer>
+        <ReactImg
+          src={`${process.env.GATSBY_CMS_URL}${image.url}`}
+          alt={credit}
+        />
+      </ImageContainer>
+    )
+  }
+
+  return (
+    <ImageContainer>
+      <Box
+        bg="warning"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "accent",
+        }}
+      >
+        Missing image
+      </Box>
+    </ImageContainer>
+  )
+}
 
 const ProductCard = ({
   pathPrefix = "products",
@@ -17,17 +91,12 @@ const ProductCard = ({
       <Link
         to={`/${pathPrefix}/${id}`}
         sx={{
-          ":hover > div": {
+          ":hover > *": {
             filter: "opacity(0.5)",
           },
         }}
       >
-        <Img
-          fluid={{
-            ...image.sharp.fluid,
-            aspectRatio: 21 / 15,
-          }}
-        />
+        <ProductImage image={image} />
       </Link>
       <Badge
         variant="priceTag"
@@ -67,4 +136,4 @@ const ProductCard = ({
   </Card>
 )
 
-export default ProductCard
+export { ProductCard as default, ImageContainer }

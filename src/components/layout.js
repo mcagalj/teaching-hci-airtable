@@ -55,6 +55,9 @@ const Layout = ({ children }) => {
             lineHeight: `body`,
             fontWeight: `body`,
           },
+          a: {
+            textDecoration: "none",
+          },
         })}
       />
       <SiteContainer>

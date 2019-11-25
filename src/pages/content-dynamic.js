@@ -1,24 +1,13 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui"
+import { jsx } from "theme-ui"
 import React from "react"
-import {
-  Alert,
-  Close,
-  Box,
-  Grid,
-  Card,
-  Badge,
-  Heading,
-  Button,
-  Flex,
-  Label,
-  Checkbox,
-} from "@theme-ui/components"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-
+import { Alert, Close, Box, Grid, Card, Flex } from "@theme-ui/components"
 import { gql } from "apollo-boost"
 import { useQuery } from "@apollo/react-hooks"
+
+import Layout from "../components/layout"
+import SEO from "../components/seo"
+import { ProductCard, ImageContainer } from "../components/products"
 
 const GET_PRODUCTS = gql`
   query Products {
@@ -33,13 +22,26 @@ const GET_PRODUCTS = gql`
           url
         }
       }
+      categories {
+        id
+        name
+      }
     }
   }
 `
 
-const Placeholder = () =>
-  Array.from({ length: 5 }).map((_, index) => (
-    <Box key={index} sx={{ minHeight: 400, bg: "indigo.2" }} />
+const ProductCardsPlaceholder = ({ count = 5 }) =>
+  Array.from({ length: count }).map((_, index) => (
+    <Card key={index} variant="placeholder">
+      <ImageContainer>
+        <Box variant="placeholder" />
+      </ImageContainer>
+      <Box variant="placeholder" sx={{ my: 2, height: "40px", width: "40%" }} />
+      <Flex sx={{ justifyContent: "space-between", alignItems: "flex-end" }}>
+        <Box variant="placeholder" sx={{ height: "20px", width: "20%" }} />
+        <Box sx={{ height: "40px", width: "40%", bg: "accent" }} />
+      </Flex>
+    </Card>
   ))
 
 const Content = () => {
@@ -55,38 +57,14 @@ const Content = () => {
   }
 
   return (
-    <Box
-      sx={{
-        display: "grid",
-        gridGap: "10px",
-        gridTemplateColumns: `repeat(auto-fill, minmax(350px, 1fr))`,
-        gridAutoRows: `minmax(50px, auto)`,
-        img: {
-          display: "flex",
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-        },
-      }}
-    >
-      {loading && <Placeholder />}
+    <Grid gap={[4, 4, 4, 5]} columns={[1, 2]}>
+      {loading && <ProductCardsPlaceholder />}
       {data &&
         data.products.map((product, index) => {
-          const { id, categories, credited_image } = product
-
-          // credited_image is array
-          // (at the moment we take only the first item)
-          const { credit, image } = credited_image[0]
-
-          return (
-            <img
-              key={id}
-              src={process.env.GATSBY_CMS_URL + image.url}
-              alt={credit}
-            />
-          )
+          const { id } = product
+          return <ProductCard key={id} {...product} />
         })}
-    </Box>
+    </Grid>
   )
 }
 

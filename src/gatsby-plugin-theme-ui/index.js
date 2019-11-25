@@ -1,4 +1,11 @@
 import { tailwind } from "@theme-ui/presets"
+import { keyframes } from "@emotion/core"
+
+const placeholderTwinkle = keyframes`
+  0% { opacity: 0.2 }
+  50% { opacity: 0.4 }
+  100% { opacity: 0.2 }
+`
 
 const theme = {
   ...tailwind,
@@ -12,6 +19,7 @@ const theme = {
   colors: {
     ...tailwind.colors,
     accent: "#f50057",
+    placeholder: "#a0aec0",
   },
   lineHeights: {
     ...tailwind.lineHeights,
@@ -76,6 +84,12 @@ const theme = {
       borderRadius: 0,
       boxShadow: theme => `0 0 8px ${theme.colors.muted}`,
     },
+
+    placeholder: {
+      padding: 2,
+      animation: `${placeholderTwinkle} 2s ease infinite`,
+      boxShadow: theme => `0 0 8px ${theme.colors.placeholder}`,
+    },
   },
   badges: {
     priceTag: {
@@ -103,6 +117,11 @@ const theme = {
     error: {
       borderRadius: 0,
       bg: "accent",
+    },
+  },
+  variants: {
+    placeholder: {
+      bg: "placeholder",
     },
   },
   shadows: {

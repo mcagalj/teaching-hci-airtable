@@ -37,6 +37,7 @@
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-helmet": "^5.2.1",
+    "react-image": "^2.2.1",
     "theme-ui": "^0.2.44"
   },
   "devDependencies": {

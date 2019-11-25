@@ -10,7 +10,7 @@ import { ProductCard, CategoryFilter } from "../components/products"
 
 const FilteredProducts = ({ products, filters }) => (
   <>
-    {products.map(({ product }, index) => {
+    {products.map(({ product }) => {
       const { id, categories } = product
 
       // processing categories (extracting category names)
@@ -50,7 +50,7 @@ const Products = ({ data: { allStrapiProduct, allStrapiCategory } }) => {
         setFilters={setFilters}
       />
 
-      <Grid gap={[5]} columns={[1, 2]}>
+      <Grid gap={[4, 4, 4, 5]} columns={[1, 2]}>
         <FilteredProducts products={products} filters={filters} />
       </Grid>
     </Layout>
