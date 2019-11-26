@@ -1,7 +1,6 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui"
+import { jsx } from "theme-ui"
 import { Grid, Card, Box, Button, Flex, Heading } from "@theme-ui/components"
-import React from "react"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 
@@ -9,17 +8,27 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const Product = ({ data: { product } }) => {
+  const { id, data } = product
+  const {
+    name,
+    description,
+    price,
+    image_credit,
+    image: {
+      localFiles: [image],
+    },
+  } = data
   return (
     <Layout>
-      <SEO title={`Product - ${product.name}`} />
+      <SEO title={`Product - ${name}`} />
 
-      <Heading sx={{ my: [3, 4] }}>{product.name}</Heading>
+      <Heading sx={{ my: [3, 4] }}>{name}</Heading>
 
       <Grid gap={4} columns={[1, null, 3]} sx={{ my: [3, 4] }}>
         <Card sx={{ gridColumn: ["1", null, "1 / span 2"] }}>
           <Img
             fluid={{
-              ...product.credited_image[0].image.sharp.fluid,
+              ...image.sharp.fluid,
               aspectRatio: 21 / 15,
             }}
           />
@@ -37,7 +46,7 @@ const Product = ({ data: { product } }) => {
               <Img
                 key={index}
                 fluid={{
-                  ...product.credited_image[0].image.sharp.fluid,
+                  ...image.sharp.fluid,
                   aspectRatio: 21 / 15,
                 }}
               />
@@ -45,9 +54,9 @@ const Product = ({ data: { product } }) => {
           </Grid>
 
           <Box>
-            <p>{product.description}</p>
+            <p>{description}</p>
             <Button variant="secondary" sx={{ width: "100%" }}>
-              Add to cart (${product.price})
+              Add to cart (${price})
             </Button>
           </Box>
         </Flex>
@@ -59,18 +68,20 @@ const Product = ({ data: { product } }) => {
 export default Product
 
 export const query = graphql`
-  query ProductQuery($id: Int!) {
-    product: strapiProduct(strapiId: { eq: $id }) {
-      id: strapiId
-      name
-      price
-      description
-      credited_image {
-        credit
+  query ProductQuery($id: String!) {
+    product: airtable(table: { eq: "Products" }, id: { eq: $id }) {
+      id
+      data {
+        name
+        description
+        price
+        image_credit
         image {
-          sharp: childImageSharp {
-            fluid(maxWidth: 1200, traceSVG: { color: "#c3dafe" }) {
-              ...GatsbyImageSharpFluid
+          localFiles {
+            sharp: childImageSharp {
+              fluid(maxWidth: 1200) {
+                ...GatsbyImageSharpFluid
+              }
             }
           }
         }

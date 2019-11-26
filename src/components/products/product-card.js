@@ -72,61 +72,68 @@ const ProductImage = ({ image, credit = "" }) => {
 
 const ProductCard = ({
   pathPrefix = "products",
-  name,
-  price,
   id,
-  credited_image: [{ credit, image }],
-  categories,
-}) => (
-  <Card key={id} variant="secondary">
-    <div sx={{ position: "relative" }}>
-      <Link
-        to={`/${pathPrefix}/${id}`}
-        sx={{
-          "&:hover img": {
-            filter: "brightness(0.9)",
-            transition: "all 0.25s ease-in-out !important",
-          },
-        }}
-      >
-        <ProductImage image={image} />
-      </Link>
-      <Badge
-        variant="priceTag"
-        sx={{
-          position: "absolute",
-          top: 1,
-          left: 1,
-        }}
-      >
-        ${price}
-      </Badge>
-      <p
-        sx={{
-          position: "absolute",
-          left: 1,
-          bottom: 1,
-          fontSize: 0,
-          bg: "light",
-          color: "textMuted",
-          m: 0,
-          px: 2,
-        }}
-      >
-        {credit}
-      </p>
-    </div>
-
-    <Heading sx={{ my: 2 }}>{name}</Heading>
-    <Flex sx={{ justifyContent: "space-between", alignItems: "flex-end" }}>
-      {categories.map(({ name, id }) => (
-        <Badge key={id} variant="outline">
-          {name}
+  data: {
+    name,
+    price,
+    image: {
+      localFiles: [image],
+    },
+    image_credit,
+    categories,
+  },
+}) => {
+  return (
+    <Card key={id} variant="secondary">
+      <div sx={{ position: "relative" }}>
+        <Link
+          to={`/${pathPrefix}/${id}`}
+          sx={{
+            "&:hover img": {
+              filter: "brightness(0.9)",
+              transition: "all 0.25s ease-in-out !important",
+            },
+          }}
+        >
+          <ProductImage image={image} credit={image_credit} />
+        </Link>
+        <Badge
+          variant="priceTag"
+          sx={{
+            position: "absolute",
+            top: 1,
+            left: 1,
+          }}
+        >
+          ${price}
         </Badge>
-      ))}
-      <Button variant="secondary">Add to cart (${price})</Button>
-    </Flex>
-  </Card>
-)
+        <p
+          sx={{
+            position: "absolute",
+            left: 1,
+            bottom: 1,
+            fontSize: 0,
+            bg: "light",
+            color: "textMuted",
+            m: 0,
+            px: 2,
+          }}
+        >
+          {image_credit}
+        </p>
+      </div>
+
+      <Heading sx={{ my: 2 }}>{name}</Heading>
+      <Flex sx={{ justifyContent: "space-between", alignItems: "flex-end" }}>
+        {categories.map(category => (
+          <Badge key={category} variant="outline">
+            {category}
+          </Badge>
+        ))}
+        <Button variant="secondary">Add to cart (${price})</Button>
+      </Flex>
+    </Card>
+  )
+}
 
 export { ProductCard as default, ImageContainer }

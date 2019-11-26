@@ -11,20 +11,14 @@ import { ProductCard, CategoryFilter } from "../components/products"
 const FilteredProducts = ({ products, filters }) => (
   <>
     {products.map(({ product }) => {
-      const { id, categories } = product
-
-      // processing categories (extracting category names)
-      // this is a one-time job, hence useMemo hook.
-      const productCategories = useMemo(
-        () => categories.map(({ name }) => name),
-        [categories]
-      )
+      const { id, data } = product
+      const { categories } = data
 
       const filterHit = useMemo(
         () =>
           filters.length === 0
             ? true
-            : productCategories.some(category => filters.includes(category)),
+            : categories.some(category => filters.includes(category)),
         [filters]
       )
 
@@ -33,17 +27,16 @@ const FilteredProducts = ({ products, filters }) => (
   </>
 )
 
-const Products = ({ data: { allStrapiProduct, allStrapiCategory } }) => {
-  const { products } = allStrapiProduct
-  const { categories } = allStrapiCategory
+const Products = ({ data: { productsTable, categoriesTable } }) => {
+  const { products } = productsTable
+  const { categories } = categoriesTable
 
   const [filters, setFilters] = useState([])
 
   return (
     <Layout>
       <SEO title="Products" />
-      <h1 sx={{ my: [3, 4] }}>Products (statically sourced from Strapi)</h1>
-
+      <h1 sx={{ my: [3, 4] }}>Products (statically sourced from Airtable)</h1>
       <CategoryFilter
         categories={categories}
         filters={filters}
@@ -60,36 +53,38 @@ const Products = ({ data: { allStrapiProduct, allStrapiCategory } }) => {
 export default Products
 
 export const query = graphql`
-  query ProductsQuery {
-    allStrapiProduct {
+  query AirtableProductsQuery {
+    productsTable: allAirtable(filter: { table: { eq: "Products" } }) {
       products: edges {
         product: node {
-          id: strapiId
-          credited_image {
-            credit
+          id
+          data {
+            name
+            description
+            price
+            image_credit
             image {
-              sharp: childImageSharp {
-                fluid(maxWidth: 400, traceSVG: { color: "#c3dafe" }) {
-                  ...GatsbyImageSharpFluid
+              localFiles {
+                sharp: childImageSharp {
+                  fluid(maxWidth: 1200) {
+                    ...GatsbyImageSharpFluid
+                  }
                 }
               }
             }
+            categories
           }
-          categories {
-            name
-            id
-          }
-          name
-          price
-          description
         }
       }
     }
-
-    allStrapiCategory {
-      categories: nodes {
-        name
-        id
+    categoriesTable: allAirtable(filter: { table: { eq: "Categories" } }) {
+      categories: edges {
+        category: node {
+          id
+          data {
+            name
+          }
+        }
       }
     }
   }

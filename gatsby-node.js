@@ -5,38 +5,6 @@
  */
 const path = require(`path`)
 
-// const { createRemoteFileNode } = require(`gatsby-source-filesystem`)
-
-// exports.onCreateNode = async ({
-//   node,
-//   actions,
-//   store,
-//   cache,
-//   createNodeId,
-// }) => {
-//   const { createNode, createNodeField } = actions
-
-//   if (node.internal.type !== null && node.internal.type === "StrapiProduct") {
-//     for (const image of node.image) {
-//       const imageNode = await createRemoteFileNode({
-//         url: `http://localhost:1337${image.url}`,
-//         store,
-//         cache,
-//         createNode,
-//         createNodeId,
-//       })
-
-//       if (imageNode) {
-//         createNodeField({
-//           node,
-//           name: `image___NODE`,
-//           value: imageNode.id,
-//         })
-//       }
-//     }
-//   }
-// }
-
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions
   const blogList = path.resolve(`./src/templates/blog-list.js`)
@@ -69,23 +37,24 @@ exports.createPages = async ({ actions, graphql }) => {
     }
   `)
 
+  // products from Airtable
   const {
     data: {
-      allStrapiProduct: { products },
+      productsTable: { products },
     },
   } = await graphql(`
-    query StrapiProductQuery {
-      allStrapiProduct {
+    query AirtableProductsQuery {
+      productsTable: allAirtable(filter: { table: { eq: "Products" } }) {
         products: edges {
           product: node {
-            id: strapiId
+            id
           }
         }
       }
     }
   `)
 
-  // Creating blog post pages
+  // Create blog post pages
   posts.forEach(({ post }, index) => {
     const { slug } = post.frontmatter
     const previous = index === 0 ? null : posts[index - 1].post
@@ -105,7 +74,7 @@ exports.createPages = async ({ actions, graphql }) => {
     })
   })
 
-  // Creating blog post list pages
+  // Create blog post list pages
   const postsPerPage = 3
   const numPages = Math.ceil(posts.length / postsPerPage)
 

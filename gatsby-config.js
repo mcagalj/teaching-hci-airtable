@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   siteMetadata: {
     title: `Teaching HCI`,
@@ -143,20 +147,25 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-source-strapi",
-      options: {
-        apiURL: "http://localhost:1337",
-        contentTypes: [
-          // List of the Content Types you want to be able to request from Gatsby.
-          "category",
-          "product",
-        ],
-        queryLimit: 1000,
-      },
-    },
-    {
       resolve: `gatsby-plugin-create-client-paths`,
       options: { prefixes: [`/content-dynamic/*`] },
+    },
+    {
+      resolve: `gatsby-source-airtable`,
+      options: {
+        apiKey: process.env.AIRTABLE_API_KEY,
+        tables: [
+          {
+            baseId: `appmjr4ydBp8PtdOu`,
+            tableName: `Products`,
+            mapping: { image: `fileNode` },
+          },
+          {
+            baseId: `appmjr4ydBp8PtdOu`,
+            tableName: `Categories`,
+          },
+        ],
+      },
     },
     {
       resolve: `gatsby-plugin-manifest`,

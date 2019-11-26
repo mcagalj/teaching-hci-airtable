@@ -39,13 +39,18 @@ const CategoryFilter = ({ categories, filters, setFilters }) => {
         Category
       </Heading>
       <Flex>
-        {categories.map(category => {
-          const checked = useMemo(() => filters.includes(category.name), [
+        {categories.map(({ category }) => {
+          const {
+            id: categoryId,
+            data: { name: categoryName },
+          } = category
+
+          const checked = useMemo(() => filters.includes(categoryName), [
             filters,
           ])
 
           return (
-            <Box key={category.id} sx={{ mr: 4 }}>
+            <Box key={categoryId} sx={{ mr: 4 }}>
               <Label
                 sx={{
                   // Somewhat an ugly hack
@@ -60,9 +65,9 @@ const CategoryFilter = ({ categories, filters, setFilters }) => {
               >
                 <Checkbox
                   checked={checked}
-                  onChange={() => handleFilterClick(category.name)}
+                  onChange={() => handleFilterClick(categoryName)}
                 />
-                <span>{category.name}</span>
+                <span>{categoryName}</span>
               </Label>
             </Box>
           )
