@@ -24,7 +24,7 @@ export default ({ pageContext, data }) => {
       <BlogNav>
         <BlogNav.Previous>
           {previous && (
-            <BlogNav.Link to={`blog/${previous.frontmatter.slug}`}>
+            <BlogNav.Link to={`/blog/${previous.frontmatter.slug}`}>
               {leftArrow} {previous.frontmatter.title}
             </BlogNav.Link>
           )}
@@ -32,7 +32,7 @@ export default ({ pageContext, data }) => {
 
         <BlogNav.Next>
           {next && (
-            <BlogNav.Link to={`blog/${next.frontmatter.slug}`}>
+            <BlogNav.Link to={`/blog/${next.frontmatter.slug}`}>
               <span>
                 {next.frontmatter.title} {rightArrow}
               </span>

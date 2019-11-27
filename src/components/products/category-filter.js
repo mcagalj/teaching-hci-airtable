@@ -38,7 +38,7 @@ const CategoryFilter = ({ categories, filters, setFilters }) => {
       >
         Category
       </Heading>
-      <Flex>
+      <Flex sx={{ flexWrap: "wrap" }}>
         {categories.map(({ category }) => {
           const {
             id: categoryId,

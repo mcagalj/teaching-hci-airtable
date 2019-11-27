@@ -1,6 +1,8 @@
 import ApolloClient from "apollo-boost"
 import { ApolloProvider } from "@apollo/react-hooks"
 
+import { CartProvider } from "./src/hooks/useCart"
+
 // import "./src/styles/prism/prism-monokai.css"
 // import "prismjs/themes/prism-okaidia.css"
 import "prismjs/themes/prism-solarizedlight.css"
@@ -13,5 +15,9 @@ const client = new ApolloClient({
 })
 
 export const wrapRootElement = ({ element }) => {
-  return <ApolloProvider client={client}>{element}</ApolloProvider>
+  return (
+    <CartProvider>
+      <ApolloProvider client={client}>{element}</ApolloProvider>
+    </CartProvider>
+  )
 }

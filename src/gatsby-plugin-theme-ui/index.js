@@ -61,10 +61,17 @@ const theme = {
   },
   buttons: {
     primary: { ...tailwind.buttons.primary },
-    secondary: {
+    primary: {
       cursor: "pointer",
       bg: "accent",
       borderRadius: 0,
+    },
+    secondary: {
+      cursor: "pointer",
+      color: "textMuted",
+      bg: "white",
+      borderRadius: 0,
+      boxShadow: theme => `inset 0 0 0 1px ${theme.colors.textMuted}`,
     },
     resetFilters: {
       color: "primary",

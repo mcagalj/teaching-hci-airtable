@@ -6,6 +6,7 @@ import Img from "gatsby-image"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import { CartButton } from "../components/products"
 
 const Product = ({ data: { product } }) => {
   const { id, data } = product
@@ -55,9 +56,7 @@ const Product = ({ data: { product } }) => {
 
           <Box>
             <p>{description}</p>
-            <Button variant="secondary" sx={{ width: "100%" }}>
-              Add to cart (${price})
-            </Button>
+            <CartButton product={product} sx={{ width: "100%" }} />
           </Box>
         </Flex>
       </Grid>
@@ -69,8 +68,8 @@ export default Product
 
 export const query = graphql`
   query ProductQuery($id: String!) {
-    product: airtable(table: { eq: "Products" }, id: { eq: $id }) {
-      id
+    product: airtable(table: { eq: "Products" }, recordId: { eq: $id }) {
+      id: recordId
       data {
         name
         description

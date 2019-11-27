@@ -13,13 +13,12 @@ const BlogList = ({
     allMdx: { posts },
   },
 }) => {
-  console.log(pageContext)
   const { currentPage, numPages } = pageContext
   const isFirst = currentPage === 1
   const isLast = currentPage === numPages
   const previousPage =
-    currentPage - 1 === 1 ? "blog/" : `blog/${(currentPage - 1).toString()}`
-  const nextPage = `blog/${(currentPage + 1).toString()}`
+    currentPage - 1 === 1 ? "/blog/" : `/blog/${(currentPage - 1).toString()}`
+  const nextPage = `/blog/${(currentPage + 1).toString()}`
 
   return (
     <Layout>

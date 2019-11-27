@@ -6,12 +6,14 @@ import { Link } from "gatsby"
 import Img from "gatsby-image"
 import ReactImg from "react-image"
 
+import { useCart } from "../../hooks/useCart"
+
 // This component is a container (mainly for images)
 // responsible for maintaining the desired
 // aspect ratio.
 // Default aspect ratio: 21 / 15 = 1.4
-const ImageContainer = ({ children, aspectRatio = 1.4 }) => (
-  <div sx={{ position: "relative", overflow: "hidden" }}>
+const ImageContainer = ({ children, aspectRatio = 1.4, ...props }) => (
+  <div sx={{ position: "relative", overflow: "hidden" }} {...props}>
     <div
       sx={{
         width: "100%",
@@ -45,10 +47,7 @@ const ProductImage = ({ image, credit = "" }) => {
       />
     ) : (
       <ImageContainer>
-        <ReactImg
-          src={`${process.env.GATSBY_CMS_URL}${image.url}`}
-          alt={credit}
-        />
+        <ReactImg src={`${image.url}`} alt={credit} />
       </ImageContainer>
     )
   }
@@ -70,19 +69,36 @@ const ProductImage = ({ image, credit = "" }) => {
   )
 }
 
-const ProductCard = ({
-  pathPrefix = "products",
-  id,
-  data: {
-    name,
-    price,
-    image: {
-      localFiles: [image],
+export const CartButton = ({ product, ...props }) => {
+  const { cart, addToCart, removeFromCart } = useCart()
+  const { id } = product
+  const alreadyInCart = cart.products[id] ? true : false
+
+  return alreadyInCart ? (
+    <Button {...props} variant="secondary" onClick={() => removeFromCart(id)}>
+      &times; Remove from cart
+    </Button>
+  ) : (
+    <Button {...props} variant="primary" onClick={() => addToCart(product)}>
+      + Add to cart
+    </Button>
+  )
+}
+
+const ProductCard = ({ pathPrefix = "products", product }) => {
+  const {
+    id,
+    data: {
+      name,
+      price,
+      image: {
+        localFiles: [image],
+      },
+      image_credit,
+      categories,
     },
-    image_credit,
-    categories,
-  },
-}) => {
+  } = product
+
   return (
     <Card key={id} variant="secondary">
       <div sx={{ position: "relative" }}>
@@ -130,7 +146,7 @@ const ProductCard = ({
             {category}
           </Badge>
         ))}
-        <Button variant="secondary">Add to cart (${price})</Button>
+        <CartButton product={product} />
       </Flex>
     </Card>
   )

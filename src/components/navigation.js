@@ -6,7 +6,10 @@ import { Link } from "gatsby"
 import logo from "../assets/logo.svg"
 import more from "../assets/more.svg"
 import Container from "./container"
-import { useResponsiveMenu, useOnOutsideEvent } from "../hooks"
+import {
+  useResponsiveMenu,
+  useOnOutsideEvent,
+} from "../hooks/use-responsive-menu"
 
 const LogoLink = () => (
   <Link to="/" sx={{ display: "flex", alignItems: "center" }}>

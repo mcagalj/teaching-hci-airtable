@@ -75,7 +75,11 @@ const FilteredProducts = ({ products, filters }) => (
       )
 
       return filterHit ? (
-        <ProductCard key={id} {...product} pathPrefix={"content-dynamic"} />
+        <ProductCard
+          key={id}
+          pathPrefix={"content-dynamic"}
+          product={product}
+        />
       ) : null
     })}
   </>

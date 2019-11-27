@@ -47,7 +47,7 @@ exports.createPages = async ({ actions, graphql }) => {
       productsTable: allAirtable(filter: { table: { eq: "Products" } }) {
         products: edges {
           product: node {
-            id
+            id: recordId
           }
         }
       }
