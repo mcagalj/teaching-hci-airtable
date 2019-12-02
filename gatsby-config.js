@@ -17,38 +17,13 @@ module.exports = {
         partiallyActive: true,
       },
       {
-        text: "Dynamic content",
-        path: "/content-dynamic",
-        partiallyActive: true,
-      },
-      // {
-      //   text: "Predavanja",
-      //   path: "/predavanja",
-      // },
-      {
-        text: "Predavanja",
-        path: "/predavanja-1",
-      },
-      // {
-      //   text: "Projekti",
-      //   path: "/projekti",
-      // },
-      // {
-      //   text: "Rezultati",
-      //   path: "/rezultati",
-      // },
-      // {
-      //   text: "Ocjenjivanje",
-      //   path: "/ocjenjivanje",
-      // },
-      {
         text: "Blog",
         path: "/blog",
         partiallyActive: true,
       },
       {
-        text: "Q&A",
-        path: "/questions",
+        text: "Cart",
+        path: "/cart",
       },
     ],
     author: `MC`,
