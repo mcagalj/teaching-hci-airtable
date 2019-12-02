@@ -15,8 +15,11 @@ import {
 } from "./actions"
 
 const getStorage = (key = "cart") => {
-  if (!localStorage) {
-    throw new Error("localStorage unavailable")
+  if (typeof localStorage === "undefined") {
+    return {
+      getItem: () => initialState,
+      setItem: () => null,
+    }
   }
 
   return {
