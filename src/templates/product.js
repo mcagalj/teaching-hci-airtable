@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { Grid, Card, Box, Button, Flex, Heading } from "@theme-ui/components"
+import { Grid, Card, Box, Flex, Heading } from "@theme-ui/components"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 
@@ -9,12 +9,10 @@ import SEO from "../components/seo"
 import { CartButton } from "../components/products"
 
 const Product = ({ data: { product } }) => {
-  const { id, data } = product
+  const { data } = product
   const {
     name,
     description,
-    price,
-    image_credit,
     image: {
       localFiles: [image],
     },
