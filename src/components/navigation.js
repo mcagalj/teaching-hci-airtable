@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, useThemeUI, Header } from "theme-ui"
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { Link } from "gatsby"
 
 import logo from "../assets/logo.svg"
@@ -10,6 +10,8 @@ import {
   useResponsiveMenu,
   useOnOutsideEvent,
 } from "../hooks/use-responsive-menu"
+
+import isBrowser from "../utils/isBrowser"
 
 const LogoLink = () => (
   <Link to="/" sx={{ display: "flex", alignItems: "center" }}>
@@ -190,7 +192,16 @@ const HiddenItems = ({
 const Nav = ({ menuItems }) => {
   const containerRef = useRef(null)
   const [open, setOpen] = useState(false)
+  const [opacity, setOpacity] = useState(0)
+
   const { menu } = useResponsiveMenu({ containerRef, menuItems })
+
+  // to prevent a flash of the responsive nav bar
+  // we hide it initially (using the "opacity" property)
+  // until a resized version is ready to be shown
+  useEffect(() => {
+    setOpacity(1)
+  }, [opacity])
 
   const isHiddenEmpty = menu.hiddenItems.length === 0
 
@@ -207,6 +218,8 @@ const Nav = ({ menuItems }) => {
         flex: "auto",
         ml: [3, 4],
         overflowX: "auto",
+        opacity,
+        transition: `opacity .25s ease-in`,
       }}
     >
       <VisibleItems visibleItems={menu.visibleItems} />

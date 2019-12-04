@@ -1,14 +1,10 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import { Grid, Card } from "@theme-ui/components"
 import React from "react"
-
+import { Grid } from "@theme-ui/components"
 import { graphql } from "gatsby"
-import Img from "gatsby-image"
 import BackgroundImage from "gatsby-background-image"
 import { MDXRenderer } from "gatsby-plugin-mdx"
-
-import matchSorter from "match-sorter"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
