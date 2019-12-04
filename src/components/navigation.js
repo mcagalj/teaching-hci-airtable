@@ -219,7 +219,6 @@ const Nav = ({ menuItems }) => {
         ml: [3, 4],
         overflowX: "auto",
         opacity,
-        transition: `opacity .25s ease-in`,
       }}
     >
       <VisibleItems visibleItems={menu.visibleItems} />
