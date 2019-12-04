@@ -14,8 +14,14 @@ import {
   decreaseQuantity,
 } from "./actions"
 
+import { isLocalStorageDefined } from "../../utils/isBrowser"
+
 const getStorage = (key = "cart") => {
-  if (typeof localStorage === "undefined") {
+  // when rendering server-side,
+  // localStorage is not available/defined
+  const isLocalStorage = isLocalStorageDefined()
+
+  if (!isLocalStorage) {
     return {
       getItem: () => initialState,
       setItem: () => null,
@@ -63,25 +69,3 @@ export const CartProvider = ({ children }) => {
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
-
-// export const _useCart = () => {
-//   const { getItem, setItem } = getStorage()
-
-//   const initialReducerState = getItem()
-//   console.log("initialReducerState:", initialReducerState)
-//   const [cart, dispatch] = useReducer(reducer, initialReducerState)
-
-//   console.log("Cart:", cart)
-
-//   useEffect(() => {
-//     setItem(cart)
-//   }, [cart])
-
-//   return {
-//     cart,
-//     addToCart: product => dispatch(addToCart(product)),
-//     removeFromCart: id => dispatch(removeFromCart(id)),
-//     increaseQuantity: id => dispatch(increaseQuantity(id)),
-//     decreaseQuantity: id => dispatch(decreaseQuantity(id)),
-//   }
-// }
