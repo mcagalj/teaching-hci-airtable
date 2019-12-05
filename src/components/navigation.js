@@ -192,16 +192,16 @@ const HiddenItems = ({
 const Nav = ({ menuItems }) => {
   const containerRef = useRef(null)
   const [open, setOpen] = useState(false)
-  const [opacity, setOpacity] = useState(0)
+  const [visibility, setVisibility] = useState("hidden")
 
   const { menu } = useResponsiveMenu({ containerRef, menuItems })
 
   // to prevent a flash of the responsive nav bar
-  // we hide it initially (using the "opacity" property)
+  // we hide it initially (using the "visibility" property)
   // until a resized version is ready to be shown
   useEffect(() => {
-    setOpacity(1)
-  }, [opacity])
+    setVisibility("visible")
+  }, [visibility])
 
   const isHiddenEmpty = menu.hiddenItems.length === 0
 
@@ -218,7 +218,7 @@ const Nav = ({ menuItems }) => {
         flex: "auto",
         ml: [3, 4],
         overflowX: "auto",
-        opacity,
+        visibility,
       }}
     >
       <VisibleItems visibleItems={menu.visibleItems} />
