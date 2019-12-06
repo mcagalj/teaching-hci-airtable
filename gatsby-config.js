@@ -133,6 +133,7 @@ module.exports = {
           {
             baseId: `appmjr4ydBp8PtdOu`,
             tableName: `Products`,
+            tableView: `Validated products`,
             mapping: { image: `fileNode` },
           },
           {
