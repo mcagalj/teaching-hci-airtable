@@ -76,7 +76,7 @@ export const query = graphql`
       sharp: childImageSharp {
         fluid(maxWidth: 1920, traceSVG: { color: "#c3dafe" }) {
           src
-          ...GatsbyImageSharpFluid_withWebp_noBase64
+          ...GatsbyImageSharpFluid_withWebp
         }
       }
     }
@@ -93,7 +93,7 @@ export const query = graphql`
           id
           base
           sharp: childImageSharp {
-            fluid(maxWidth: 400, traceSVG: { color: "#c3dafe" }) {
+            fluid(maxWidth: 400, quality: 70) {
               ...GatsbyImageSharpFluid_withWebp_noBase64
             }
           }
