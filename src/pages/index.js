@@ -92,7 +92,6 @@ export const query = graphql`
         }
       }
     }
-
     mobileBHeroImage: file(relativePath: { eq: "images/hero.jpg" }) {
       sharp: childImageSharp {
         fluid(maxWidth: 600, traceSVG: { color: "#c3dafe" }) {
@@ -100,7 +99,6 @@ export const query = graphql`
         }
       }
     }
-
     desktopHeroImage: file(relativePath: { eq: "images/hero.jpg" }) {
       sharp: childImageSharp {
         fluid(maxWidth: 1920, traceSVG: { color: "#c3dafe" }) {
@@ -108,11 +106,9 @@ export const query = graphql`
         }
       }
     }
-
     contact: mdx(fileAbsolutePath: { regex: "/contact.md/" }) {
       body
     }
-
     imageFiles: allFile(
       filter: { absolutePath: { regex: "//content/images//" } }
     ) {
