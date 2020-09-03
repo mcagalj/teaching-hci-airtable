@@ -19,7 +19,7 @@ const IndexPage = ({ data }) => {
   const sources = [
     mobileAHeroImage.sharp.fluid,
     {
-      mobileBHeroImage.sharp.fluid,
+      ...mobileBHeroImage.sharp.fluid,
       media: `(min-width: 600px)`
     },
     {
