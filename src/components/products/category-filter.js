@@ -38,7 +38,7 @@ const CategoryFilter = ({ categories, filters, setFilters }) => {
       >
         Category
       </Heading>
-      <Flex sx={{ flexWrap: "wrap" }}>
+      <Flex sx={{ flexWrap: "wrap", maxWidth: "600px" }}>
         {categories.map(({ category }) => {
           const {
             id: categoryId,
@@ -50,7 +50,7 @@ const CategoryFilter = ({ categories, filters, setFilters }) => {
           ])
 
           return (
-            <Box key={categoryId} sx={{ mr: 4 }}>
+            <Box key={categoryId} sx={{ mr: 4, mb: [1, 0, 0], width: "150px" }}>
               <Label
                 sx={{
                   // Somewhat an ugly hack

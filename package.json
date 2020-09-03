@@ -6,8 +6,8 @@
   "author": "Mario Cagalj <mcagalj@fesb.hr>",
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
-    "@emotion/core": "^10.0.22",
-    "@emotion/styled": "^10.0.23",
+    "@emotion/core": "^10.0.35",
+    "@emotion/styled": "^10.0.27",
     "@mdx-js/mdx": "^1.5.1",
     "@mdx-js/react": "^1.5.1",
     "@theme-ui/components": "^0.2.49",
@@ -41,6 +41,7 @@
     "theme-ui": "^0.2.44"
   },
   "devDependencies": {
+    "npm-check": "^5.9.2",
     "prettier": "^1.18.2"
   },
   "keywords": [
@@ -53,7 +54,7 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \""
+    "upgrade-interactive": "npm-check --update"
   },
   "repository": {
     "type": "git",
