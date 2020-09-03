@@ -13,12 +13,25 @@ import Lecturers from "../components/lecturers"
 import FilteredGallery from "../components/filtered-gallery"
 
 const IndexPage = ({ data }) => {
-  const { heroImage, contact, imageFiles } = data
+  const { mobileAHeroImage, mobileAHeroImage, desktopHeroImage, contact, imageFiles } = data
+
+  // Set up the array of image data and `media` keys.
+  const sources = [
+    mobileAHeroImage.sharp.fluid,
+    {
+      mobileBHeroImage.sharp.fluid,
+      media: `(min-width: 600px)`
+    },
+    {
+      ...desktopHeroImage.sharp.fluid,
+      media: `(min-width: 1200px)`,
+    },
+  ]
 
   return (
     <>
       <BackgroundImage
-        fluid={heroImage.sharp.fluid}
+        fluid={sources}
         sx={{
           height: [150, 200, 250],
         }}
@@ -72,7 +85,25 @@ export default IndexPage
 
 export const query = graphql`
   {
-    heroImage: file(relativePath: { eq: "images/hero.jpg" }) {
+    mobileAHeroImage: file(relativePath: { eq: "images/hero.jpg" }) {
+      sharp: childImageSharp {
+        fluid(maxWidth: 400, traceSVG: { color: "#c3dafe" }) {
+          src
+          ...GatsbyImageSharpFluid_withWebp
+        }
+      }
+    }
+
+    mobileBHeroImage: file(relativePath: { eq: "images/hero.jpg" }) {
+      sharp: childImageSharp {
+        fluid(maxWidth: 600, traceSVG: { color: "#c3dafe" }) {
+          src
+          ...GatsbyImageSharpFluid_withWebp
+        }
+      }
+    }
+
+    desktopHeroImage: file(relativePath: { eq: "images/hero.jpg" }) {
       sharp: childImageSharp {
         fluid(maxWidth: 1920, traceSVG: { color: "#c3dafe" }) {
           src
