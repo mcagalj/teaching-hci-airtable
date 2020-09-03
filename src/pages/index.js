@@ -81,10 +81,10 @@ const IndexPage = ({ data }) => {
   )
 }
 
-export default IndexPage
+export default IndexPage;
 
-export const query = graphql`
- query IndexQuery{
+export const query = graphql` 
+  {
     mobileAHeroImage: file(relativePath: { eq: "images/hero.jpg" }) {
       sharp: childImageSharp {
         fluid(maxWidth: 400, traceSVG: { color: "#c3dafe" }) {
