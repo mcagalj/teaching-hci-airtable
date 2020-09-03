@@ -88,7 +88,6 @@ export const query = graphql`
     mobileAHeroImage: file(relativePath: { eq: "images/hero.jpg" }) {
       sharp: childImageSharp {
         fluid(maxWidth: 400, traceSVG: { color: "#c3dafe" }) {
-          src
           ...GatsbyImageSharpFluid_withWebp
         }
       }
@@ -97,7 +96,6 @@ export const query = graphql`
     mobileBHeroImage: file(relativePath: { eq: "images/hero.jpg" }) {
       sharp: childImageSharp {
         fluid(maxWidth: 600, traceSVG: { color: "#c3dafe" }) {
-          src
           ...GatsbyImageSharpFluid_withWebp
         }
       }
@@ -106,7 +104,6 @@ export const query = graphql`
     desktopHeroImage: file(relativePath: { eq: "images/hero.jpg" }) {
       sharp: childImageSharp {
         fluid(maxWidth: 1920, traceSVG: { color: "#c3dafe" }) {
-          src
           ...GatsbyImageSharpFluid_withWebp
         }
       }
