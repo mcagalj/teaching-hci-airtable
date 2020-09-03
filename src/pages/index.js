@@ -20,11 +20,11 @@ const IndexPage = ({ data }) => {
     mobileAHeroImage.sharp.fluid,
     {
       ...mobileBHeroImage.sharp.fluid,
-      media: "(min-width: 601px)"
+      media: "(min-width: 400px)",
     },
     {
       ...desktopHeroImage.sharp.fluid,
-      media: "(min-width: 1201px)",
+      media: "(min-width: 1200px)",
     },
   ]
 
