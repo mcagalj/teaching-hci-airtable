@@ -8,22 +8,23 @@ module.exports = {
     description: `The title says it all.`,
     menuItems: [
       {
-        text: "Home",
-        path: "/",
+        text: `Home`,
+        path: `/`,
       },
       {
-        text: "Products",
-        path: "/products",
+        text: `Products`,
+        path: `/products`,
         partiallyActive: true,
       },
       {
-        text: "Blog",
-        path: "/blog",
+        text: `Blog`,
+        path: `/blog`,
         partiallyActive: true,
       },
       {
-        text: "Cart",
-        path: "/cart",
+        text: `Cart`,
+        path: `/cart`,
+        cart: true,
       },
     ],
     author: `MC`,
@@ -48,19 +49,19 @@ module.exports = {
     `gatsby-plugin-emotion`,
     `gatsby-plugin-theme-ui`,
     {
-      resolve: "gatsby-theme-style-guide",
+      resolve: `gatsby-theme-style-guide`,
       options: {
         // sets path for generated page
-        basePath: "/design-system",
+        basePath: `/design-system`,
       },
     },
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
-        extensions: [".mdx", ".md", ".markdown"],
+        extensions: [`.mdx`, `.md`, `.markdown`],
         gatsbyRemarkPlugins: [
           {
-            resolve: "gatsby-remark-images",
+            resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 600,
               linkImagesToOriginal: false,
@@ -76,7 +77,7 @@ module.exports = {
               // you may use this to prevent Prism from re-processing syntax.
               // This is an uncommon use-case though;
               // If you're unsure, it's best to use the default value.
-              classPrefix: "language-",
+              classPrefix: `language-`,
               // This is used to allow setting a language for inline code
               // (i.e. single backticks) by creating a separator.
               // This separator is a string and will do no white-space
@@ -103,8 +104,8 @@ module.exports = {
               // Customize the prompt used in shell output
               // Values below are default
               prompt: {
-                user: "root",
-                host: "localhost",
+                user: `root`,
+                host: `localhost`,
                 global: false,
               },
             },
@@ -112,7 +113,7 @@ module.exports = {
         ],
         plugins: [
           {
-            resolve: "gatsby-remark-images",
+            resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 600,
               linkImagesToOriginal: false,
@@ -121,10 +122,11 @@ module.exports = {
         ],
       },
     },
-    {
-      resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/content-dynamic/*`] },
-    },
+    // // Client only routes
+    // {
+    //   resolve: `gatsby-plugin-create-client-paths`,
+    //   options: { prefixes: [`/content-dynamic/*`] },
+    // },
     {
       resolve: `gatsby-source-airtable`,
       options: {
@@ -155,7 +157,8 @@ module.exports = {
         icon: `src/assets/hci-icon.png`, // This path is relative to the root of the site.
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
+    `gatsby-plugin-preact`,
+    // This (optional) plugin enables Progressive Web App + Offline functionality.
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
   ],

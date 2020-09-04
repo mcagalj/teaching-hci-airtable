@@ -36,7 +36,7 @@ export const GitHub = ({
 
 export const Gatsby = ({
   color = `rgba(255,255,255,0.7)`,
-  url = `https://www.gatsbyjs.org`,
+  url = `https://www.gatsbyjs.com`,
 }) => (
   <a
     href={url}

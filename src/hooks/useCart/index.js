@@ -59,13 +59,16 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => setItem(cart), [cart])
 
-  const value = useMemo(() => ({
-    cart,
-    addToCart: product => dispatch(addToCart(product)),
-    removeFromCart: id => dispatch(removeFromCart(id)),
-    increaseQuantity: id => dispatch(increaseQuantity(id)),
-    decreaseQuantity: id => dispatch(decreaseQuantity(id)),
-  }))
+  const value = useMemo(
+    () => ({
+      cart,
+      addToCart: product => dispatch(addToCart(product)),
+      removeFromCart: id => dispatch(removeFromCart(id)),
+      increaseQuantity: id => dispatch(increaseQuantity(id)),
+      decreaseQuantity: id => dispatch(decreaseQuantity(id)),
+    }),
+    [cart]
+  )
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }

@@ -10,8 +10,7 @@ import {
   useResponsiveMenu,
   useOnOutsideEvent,
 } from "../hooks/use-responsive-menu"
-
-import isBrowser from "../utils/isBrowser"
+import { useCart } from "../hooks/useCart"
 
 const LogoLink = () => (
   <Link to="/" sx={{ display: "flex", alignItems: "center" }}>
@@ -30,6 +29,7 @@ const NavLink = ({ ...prop }) => (
     {...prop}
     sx={{
       display: "inline-block",
+      position: "relative",
       color: "primary",
       textDecoration: "none",
       textTransform: "uppercase",
@@ -41,9 +41,12 @@ const NavLink = ({ ...prop }) => (
   />
 )
 
-const VisibleNavLink = ({ partiallyActive = false, ...prop }) => {
+const VisibleNavLink = ({ partiallyActive = false, cart = false, ...prop }) => {
   const { theme } = useThemeUI()
-
+  const {
+    cart: { products },
+  } = useCart()
+  const isCartAndNonempty = cart && !!Object.keys(products).length
   return (
     <NavLink
       {...prop}
@@ -59,6 +62,17 @@ const VisibleNavLink = ({ partiallyActive = false, ...prop }) => {
           borderBottom: theme =>
             `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
         },
+        "&::after": isCartAndNonempty
+          ? {
+              content: `"(${Object.keys(products).length})"`,
+              color: "accent",
+              fontWeight: "semibold",
+              fontSize: "x-small",
+              position: "absolute",
+              top: "-4px",
+              right: "-5px",
+            }
+          : null,
       }}
       activeStyle={{
         color: theme.colors.primaryHover,
@@ -69,8 +83,12 @@ const VisibleNavLink = ({ partiallyActive = false, ...prop }) => {
   )
 }
 
-const HiddenNavLink = ({ partiallyActive = false, ...prop }) => {
+const HiddenNavLink = ({ partiallyActive = false, cart = false, ...prop }) => {
   const { theme } = useThemeUI()
+  const {
+    cart: { products },
+  } = useCart()
+  const isCartAndNonempty = cart && !!Object.keys(products).length
 
   return (
     <NavLink
@@ -85,6 +103,14 @@ const HiddenNavLink = ({ partiallyActive = false, ...prop }) => {
           borderLeft: theme =>
             `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
         },
+        "&::after": isCartAndNonempty
+          ? {
+              content: `" (${Object.keys(products).length})"`,
+              color: "accent",
+              fontWeight: "semibold",
+              fontSize: "normal",
+            }
+          : null,
       }}
       activeStyle={{
         color: theme.colors.primaryHover,
@@ -95,32 +121,51 @@ const HiddenNavLink = ({ partiallyActive = false, ...prop }) => {
   )
 }
 
-const MoreButton = ({ onClick, width = 50 }) => (
-  <div
-    sx={{
-      display: "flex",
-      flexShrink: 0,
-      alignItems: "center",
-      width,
-      px: 3,
-      cursor: "pointer",
-      "&:hover": {
-        backgroundColor: "indigo.2",
-      },
-    }}
-    onClick={onClick}
-  >
-    <img
-      src={more}
+const MoreButton = ({ onClick, open = false, width = 50 }) => {
+  const {
+    cart: { products },
+  } = useCart()
+  const isCartNonempty = !open && !!Object.keys(products).length
+
+  return (
+    <div
       sx={{
-        stroke: "red",
-        height: theme =>
-          `calc(calc(${theme.sizes.navBar} - 2 * ${theme.sizes.navLinkBorder})/4)`,
-        width: "auto",
+        display: "flex",
+        position: "relative",
+        flexShrink: 0,
+        alignItems: "center",
+        width,
+        px: 3,
+        cursor: "pointer",
+        "&:hover": {
+          backgroundColor: "indigo.2",
+        },
+        "&::after": isCartNonempty
+          ? {
+              content: `"●"`,
+              color: "accent",
+              fontWeight: "semibold",
+              fontSize: "small",
+              position: "absolute",
+              top: 0,
+              right: 0,
+            }
+          : null,
       }}
-    />
-  </div>
-)
+      onClick={onClick}
+    >
+      <img
+        src={more}
+        sx={{
+          stroke: "red",
+          height: theme =>
+            `calc(calc(${theme.sizes.navBar} - 2 * ${theme.sizes.navLinkBorder})/4)`,
+          width: "auto",
+        }}
+      />
+    </div>
+  )
+}
 
 const Triangle = () => (
   <div
@@ -146,6 +191,7 @@ const VisibleItems = ({ visibleItems }) =>
       key={menuItem.path}
       to={menuItem.path}
       partiallyActive={menuItem.partiallyActive}
+      cart={menuItem.cart}
     >
       {menuItem.text}
     </VisibleNavLink>
@@ -181,6 +227,7 @@ const HiddenItems = ({
           key={menuItem.path}
           to={menuItem.path}
           partiallyActive={menuItem.partiallyActive}
+          cart={menuItem.cart}
         >
           {menuItem.text}
         </HiddenNavLink>
@@ -222,11 +269,10 @@ const Nav = ({ menuItems }) => {
       }}
     >
       <VisibleItems visibleItems={menu.visibleItems} />
-      {!isHiddenEmpty && <MoreButton onClick={handleMoreClick} />}
-      {!isHiddenEmpty &&
-        (open && (
-          <HiddenItems menu={menu} handleOutsideClick={handleOutsideClick} />
-        ))}
+      {!isHiddenEmpty && <MoreButton onClick={handleMoreClick} open={open} />}
+      {!isHiddenEmpty && open && (
+        <HiddenItems menu={menu} handleOutsideClick={handleOutsideClick} />
+      )}
     </nav>
   )
 }

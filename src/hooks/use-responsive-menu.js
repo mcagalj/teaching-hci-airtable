@@ -65,18 +65,20 @@ export const useResponsiveMenu = ({
         (result, menuItem, index) => {
           result.cumulativeWidth += menuItem.offsetWidth + itemMargin
 
-          const { text, path, partiallyActive } = menuItems[index]
+          const { text, path, partiallyActive, cart } = menuItems[index]
 
           result.cumulativeWidth < maxWidth
             ? result.visibleItems.push({
                 text,
                 path,
                 partiallyActive: !!partiallyActive,
+                cart: !!cart,
               })
             : result.hiddenItems.push({
                 text,
                 path,
                 partiallyActive: !!partiallyActive,
+                cart: !!cart,
               })
 
           return result

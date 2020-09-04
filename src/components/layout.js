@@ -29,6 +29,7 @@ const Layout = ({ children }) => {
             text
             path
             partiallyActive
+            cart
           }
         }
       }

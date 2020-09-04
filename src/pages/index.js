@@ -74,9 +74,8 @@ export const query = graphql`
   {
     heroImage: file(relativePath: { eq: "images/hero.jpg" }) {
       sharp: childImageSharp {
-        fluid(maxWidth: 1920, traceSVG: { color: "#c3dafe" }) {
-          src
-          ...GatsbyImageSharpFluid_withWebp
+        fluid(maxWidth: 1920) {
+          ...GatsbyImageSharpFluid_withWebp_noBase64
         }
       }
     }
