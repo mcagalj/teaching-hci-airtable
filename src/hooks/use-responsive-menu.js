@@ -45,7 +45,7 @@ export const useResponsiveMenu = ({
 }) => {
   const [menu, setMenu] = useState({ visibleItems: menuItems, hiddenItems: [] })
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const handleResize = () => {
       setMenu({ visibleItems: menuItems, hiddenItems: [] })
 

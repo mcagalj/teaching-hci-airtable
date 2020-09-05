@@ -66,11 +66,11 @@ const VisibleNavLink = ({ partiallyActive = false, cart = false, ...prop }) => {
           ? {
               content: `"(${Object.keys(products).length})"`,
               color: "accent",
-              fontWeight: "semibold",
+              fontWeight: "light",
               fontSize: "x-small",
               position: "absolute",
-              top: "-4px",
-              right: "-5px",
+              top: "-6px",
+              right: "-6px",
             }
           : null,
       }}
@@ -105,10 +105,11 @@ const HiddenNavLink = ({ partiallyActive = false, cart = false, ...prop }) => {
         },
         "&::after": isCartAndNonempty
           ? {
-              content: `" (${Object.keys(products).length})"`,
+              content: `"(${Object.keys(products).length})"`,
               color: "accent",
-              fontWeight: "semibold",
+              fontWeight: "light",
               fontSize: "normal",
+              ml: 2,
             }
           : null,
       }}
@@ -145,10 +146,10 @@ const MoreButton = ({ onClick, open = false, width = 50 }) => {
               content: `"●"`,
               color: "accent",
               fontWeight: "semibold",
-              fontSize: "small",
+              fontSize: "x-small",
               position: "absolute",
-              top: 0,
-              right: 0,
+              top: "5px",
+              right: "5px",
             }
           : null,
       }}
