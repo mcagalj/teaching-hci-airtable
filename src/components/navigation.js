@@ -64,13 +64,12 @@ const VisibleNavLink = ({ partiallyActive = false, cart = false, ...prop }) => {
         },
         "&::after": isCartAndNonempty
           ? {
-              content: `"(${Object.keys(products).length})"`,
+              content: `"●"`,
               color: "accent",
-              fontWeight: "light",
-              fontSize: "x-small",
+              fontSize: "small",
               position: "absolute",
               top: "-6px",
-              right: "-10px",
+              right: "-6px",
             }
           : null,
       }}
@@ -145,8 +144,7 @@ const MoreButton = ({ onClick, open = false, width = 50 }) => {
           ? {
               content: `"●"`,
               color: "accent",
-              fontWeight: "semibold",
-              fontSize: "x-small",
+              fontSize: "small",
               position: "absolute",
               top: "5px",
               right: "5px",
