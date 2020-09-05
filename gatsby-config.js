@@ -20,6 +20,10 @@ module.exports = {
         text: `Blog`,
         path: `/blog`,
         partiallyActive: true,
+      },  
+      {
+        text: `Style guide`,
+        path: `/style-guide`,
       },
       {
         text: `Cart`,
@@ -52,7 +56,7 @@ module.exports = {
       resolve: `gatsby-theme-style-guide`,
       options: {
         // sets path for generated page
-        basePath: `/design-system`,
+        basePath: `/style-guide`,
       },
     },
     {
