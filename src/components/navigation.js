@@ -66,7 +66,7 @@ const VisibleNavLink = ({ partiallyActive = false, cart = false, ...prop }) => {
           ? {
               content: `"●"`,
               color: "accent",
-              fontSize: "0",
+              fontSize: "x-small",
               position: "absolute",
               top: "-6px",
               right: "-6px",
@@ -144,7 +144,7 @@ const MoreButton = ({ onClick, open = false, width = 50 }) => {
           ? {
               content: `"●"`,
               color: "accent",
-              fontSize: "0",
+              fontSize: "x-small",
               position: "absolute",
               top: "5px",
               right: "5px",
