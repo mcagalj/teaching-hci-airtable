@@ -70,7 +70,7 @@ const VisibleNavLink = ({ partiallyActive = false, cart = false, ...prop }) => {
               fontSize: "x-small",
               position: "absolute",
               top: "-6px",
-              right: "-6px",
+              right: "-8px",
             }
           : null,
       }}
