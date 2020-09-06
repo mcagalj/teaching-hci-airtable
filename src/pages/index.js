@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui"
 import React from "react"
+import { jsx, Styled } from "theme-ui"
 import { Grid } from "@theme-ui/components"
 import { graphql } from "gatsby"
 import BackgroundImage from "gatsby-background-image"

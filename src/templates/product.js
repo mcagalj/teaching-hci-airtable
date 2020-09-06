@@ -40,7 +40,7 @@ const Product = ({ data: { product } }) => {
             height: "100%",
           }}
         >
-          <Grid columns="2">
+          <Grid columns={2}>
             {Array.from({ length: 4 }).map((_, index) => (
               <Img
                 key={index}

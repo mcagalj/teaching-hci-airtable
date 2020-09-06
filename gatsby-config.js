@@ -20,7 +20,7 @@ module.exports = {
         text: `Blog`,
         path: `/blog`,
         partiallyActive: true,
-      },  
+      },
       {
         text: `Style guide`,
         path: `/style-guide`,
@@ -44,6 +44,13 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
+        name: `pages`,
+        path: `${__dirname}/src/pages`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
         name: `content`,
         path: `${__dirname}/content`,
       },
@@ -53,16 +60,12 @@ module.exports = {
     `gatsby-plugin-emotion`,
     `gatsby-plugin-theme-ui`,
     {
-      resolve: `gatsby-theme-style-guide`,
-      options: {
-        // sets path for generated page
-        basePath: `/style-guide`,
-      },
-    },
-    {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`, `.markdown`],
+        defaultLayouts: {
+          default: require.resolve("./src/components/layout.js"),
+        },
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,

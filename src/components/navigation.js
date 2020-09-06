@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import { jsx, useThemeUI, Header } from "theme-ui"
+import React from "react"
+import { jsx, useThemeUI, Box, Badge } from "theme-ui"
 import { useRef, useState, useEffect } from "react"
 import { Link } from "gatsby"
 
@@ -48,37 +49,38 @@ const VisibleNavLink = ({ partiallyActive = false, cart = false, ...prop }) => {
   } = useCart()
   const isCartAndNonempty = cart && !!Object.keys(products).length
   return (
-    <NavLink
-      {...prop}
-      sx={{
-        mx: 2,
-        px: 2,
-        lineHeight: theme =>
-          `calc(${theme.sizes.navBar} - 2 * ${theme.sizes.navLinkBorder})`,
-        borderTop: theme => `${theme.sizes.navLinkBorder} solid transparent`,
-        borderBottom: theme => `${theme.sizes.navLinkBorder} solid transparent`,
-        "&:hover": {
-          color: "primaryHover",
+    <Box sx={{ position: "relative" }}>
+      <NavLink
+        {...prop}
+        sx={{
+          mx: 2,
+          px: 2,
+          lineHeight: theme =>
+            `calc(${theme.sizes.navBar} - 2 * ${theme.sizes.navLinkBorder})`,
+          borderTop: theme => `${theme.sizes.navLinkBorder} solid transparent`,
           borderBottom: theme =>
-            `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
-        },
-        "&::after": isCartAndNonempty
-          ? {
-              content: `"●"`,
-              color: "accent",
-              fontSize: "x-small",
-              position: "absolute",
-              top: "-6px",
-              right: "-6px",
-            }
-          : null,
-      }}
-      activeStyle={{
-        color: theme.colors.primaryHover,
-        borderBottom: `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
-      }}
-      partiallyActive={partiallyActive}
-    />
+            `${theme.sizes.navLinkBorder} solid transparent`,
+          "&:hover": {
+            color: "primaryHover",
+            borderBottom: theme =>
+              `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
+          },
+        }}
+        activeStyle={{
+          color: theme.colors.primaryHover,
+          borderBottom: `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
+        }}
+        partiallyActive={partiallyActive}
+      />
+      {isCartAndNonempty ? (
+        <Badge
+          variant="badges.cart"
+          sx={{ position: "absolute", top: "8px", right: "0px" }}
+        >
+          {Object.keys(products).length}
+        </Badge>
+      ) : null}
+    </Box>
   )
 }
 
@@ -90,34 +92,35 @@ const HiddenNavLink = ({ partiallyActive = false, cart = false, ...prop }) => {
   const isCartAndNonempty = cart && !!Object.keys(products).length
 
   return (
-    <NavLink
-      {...prop}
-      sx={{
-        m: 2,
-        px: 3,
-        py: 2,
-        borderLeft: theme => `${theme.sizes.navLinkBorder} solid transparent`,
-        "&:hover": {
-          color: "primaryHover",
-          borderLeft: theme =>
-            `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
-        },
-        "&::after": isCartAndNonempty
-          ? {
-              content: `"(${Object.keys(products).length})"`,
-              color: "accent",
-              fontWeight: "light",
-              fontSize: "normal",
-              ml: 2,
-            }
-          : null,
-      }}
-      activeStyle={{
-        color: theme.colors.primaryHover,
-        borderLeft: `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
-      }}
-      partiallyActive={partiallyActive}
-    />
+    <Box sx={{ position: "relative" }}>
+      <NavLink
+        {...prop}
+        sx={{
+          m: 2,
+          px: 3,
+          py: 2,
+          borderLeft: theme => `${theme.sizes.navLinkBorder} solid transparent`,
+          "&:hover": {
+            color: "primaryHover",
+            borderLeft: theme =>
+              `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
+          },
+        }}
+        activeStyle={{
+          color: theme.colors.primaryHover,
+          borderLeft: `${theme.sizes.navLinkBorder} solid ${theme.colors.primaryHover}`,
+        }}
+        partiallyActive={partiallyActive}
+      />
+      {isCartAndNonempty ? (
+        <Badge
+          variant="badges.cart"
+          sx={{ position: "absolute", top: "8px", right: "8px" }}
+        >
+          {Object.keys(products).length}
+        </Badge>
+      ) : null}
+    </Box>
   )
 }
 
@@ -140,16 +143,6 @@ const MoreButton = ({ onClick, open = false, width = 50 }) => {
         "&:hover": {
           backgroundColor: "indigo.2",
         },
-        "&::after": isCartNonempty
-          ? {
-              content: `"●"`,
-              color: "accent",
-              fontSize: "x-small",
-              position: "absolute",
-              top: "5px",
-              right: "5px",
-            }
-          : null,
       }}
       onClick={onClick}
     >
@@ -162,6 +155,14 @@ const MoreButton = ({ onClick, open = false, width = 50 }) => {
           width: "auto",
         }}
       />
+      {isCartNonempty ? (
+        <Badge
+          variant="badges.cart"
+          sx={{ position: "absolute", top: "8px", right: "0px" }}
+        >
+          {Object.keys(products).length}
+        </Badge>
+      ) : null}
     </div>
   )
 }
@@ -278,7 +279,7 @@ const Nav = ({ menuItems }) => {
 
 const Navigation = ({ menuItems }) => {
   return (
-    <Header
+    <header
       sx={{
         borderBottom: theme => theme.borders.header,
         boxShadow: theme => theme.shadows.header,
@@ -295,7 +296,7 @@ const Navigation = ({ menuItems }) => {
         <LogoLink />
         <Nav menuItems={menuItems} />
       </Container>
-    </Header>
+    </header>
   )
 }
 

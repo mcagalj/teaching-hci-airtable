@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import React from "react"
+import { css, jsx } from "theme-ui"
 import { useStaticQuery, graphql } from "gatsby"
 import { Global } from "@emotion/core"
-import { css, jsx, Main } from "theme-ui"
-
+import { MDXProvider } from "@mdx-js/react"
+import * as components from "theme-ui"
 import Navigation from "../components/navigation"
 import Container from "../components/container"
 import Footer from "../components/footer"
@@ -64,9 +65,9 @@ const Layout = ({ children }) => {
       <SiteContainer>
         <Navigation menuItems={data.site.siteMetadata.menuItems} />
 
-        <Main>
+        <main sx={{ flex: "1 1 auto" }}>
           <Container>{children}</Container>
-        </Main>
+        </main>
 
         <Footer />
       </SiteContainer>
@@ -74,4 +75,8 @@ const Layout = ({ children }) => {
   )
 }
 
-export default Layout
+export default ({ children }) => (
+  <MDXProvider components={components}>
+    <Layout>{children}</Layout>
+  </MDXProvider>
+)

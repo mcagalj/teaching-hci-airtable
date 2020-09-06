@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { graphql } from "gatsby"
-
 import SEO from "../components/seo"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import Layout from "../components/layout"

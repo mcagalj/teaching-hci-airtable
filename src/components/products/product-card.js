@@ -1,7 +1,6 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
+import { jsx, Box, Card, Badge, Heading, Button, Flex } from "theme-ui"
 import React from "react"
-import { Box, Card, Badge, Heading, Button, Flex } from "@theme-ui/components"
 import { Link } from "gatsby"
 import Img from "gatsby-image"
 import ReactImg from "react-image"

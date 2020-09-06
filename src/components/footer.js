@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled, Footer as ThemeFooter } from "theme-ui"
-
+import { jsx, Styled } from "theme-ui"
 import Container from "./container"
 import { GitHub, Gatsby } from "./icons"
 
@@ -8,7 +7,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <ThemeFooter
+    <footer
       sx={{
         bg: "blue.9",
         mt: 4,
@@ -44,7 +43,7 @@ const Footer = () => {
         </Styled.blockquote>
         <p sx={{ mt: 4 }}> Mario Čagalj © {currentYear} FESB</p>
       </Container>
-    </ThemeFooter>
+    </footer>
   )
 }
 

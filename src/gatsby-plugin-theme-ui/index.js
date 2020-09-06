@@ -111,6 +111,14 @@ const theme = {
       color: "textMuted",
       fontWeight: "normal",
     },
+    cart: {
+      bg: "accent",
+      borderRadius: 3,
+      minWidth: "15px",
+      textAlign: "center",
+      fontWeight: "semibold",
+      fontSize: "10px",
+    },
   },
   forms: {
     checkbox: {

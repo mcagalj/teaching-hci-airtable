@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { graphql } from "gatsby"
-
 import SEO from "../components/seo"
 import Layout from "../components/layout"
 import BlogExcerpt from "../components/blog-excerpt"
