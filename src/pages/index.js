@@ -19,6 +19,8 @@ const IndexPage = ({ data }) => {
     <>
       <BackgroundImage
         fluid={heroImage.sharp.fluid}
+        fadeIn={false} 
+        loading="eager"
         sx={{
           height: [150, 200, 250],
         }}
