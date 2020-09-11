@@ -13,13 +13,42 @@ import Lecturers from "../components/lecturers"
 import FilteredGallery from "../components/filtered-gallery"
 
 const IndexPage = ({ data }) => {
-  const { heroImage, contact, imageFiles } = data
+  const {
+    heroImage400,
+    heroImage600,
+    heroImage800,
+    heroImage,
+    contact,
+    imageFiles,
+  } = data
+
+  const sources = [
+    {
+      ...heroImage400.sharp.fixed,
+      media: "(max-width: 400px)",
+    },
+    {
+      ...heroImage600.sharp.fixed,
+      media: "(min-width: 401px) and (max-width: 600px)",
+    },
+    {
+      ...heroImage800.sharp.fixed,
+      media: "(min-width: 601px) and (max-width: 800px)",
+    },
+    {
+      ...heroImage.sharp.fixed,
+      media: "(min-width: 801px)",
+    },
+  ]
 
   return (
     <>
       <BackgroundImage
-        fluid={heroImage.sharp.fluid}
+        fixed={sources}
+        fadeIn={false}
+        loading="eager"
         sx={{
+          width: "100%",
           height: [150, 200, 250],
         }}
       >
@@ -45,7 +74,25 @@ const IndexPage = ({ data }) => {
           </Container>
         </div>
       </BackgroundImage>
-
+      {/* <picture>
+        <source
+          media="(max-width: 400px)"
+          srcset={heroImage400.sharp.fixed.base64}
+        />
+        <source
+          media="(min-width: 401px) and (max-width: 600px)"
+          srcset={heroImage600.sharp.fixed.base64}
+        />
+        <source
+          media="(min-width: 601px) and (max-width: 800px)"
+          srcset={heroImage800.sharp.fixed.base64}
+        />
+        <source
+          media="(min-width: 801px)"
+          srcset={heroImage.sharp.fixed.base64}
+        />
+        <img src={heroImage.sharp.fixed.base64} alt="Hero image"></img>
+      </picture> */}
       <Layout>
         <SEO title="Naslovna" />
 
@@ -72,10 +119,34 @@ export default IndexPage
 
 export const query = graphql`
   {
+    heroImage400: file(relativePath: { eq: "images/hero.jpg" }) {
+      sharp: childImageSharp {
+        fixed(base64Width: 400) {
+          base64
+        }
+      }
+    }
+
+    heroImage600: file(relativePath: { eq: "images/hero.jpg" }) {
+      sharp: childImageSharp {
+        fixed(base64Width: 600) {
+          base64
+        }
+      }
+    }
+
+    heroImage800: file(relativePath: { eq: "images/hero.jpg" }) {
+      sharp: childImageSharp {
+        fixed(base64Width: 800) {
+          base64
+        }
+      }
+    }
+
     heroImage: file(relativePath: { eq: "images/hero.jpg" }) {
       sharp: childImageSharp {
-        fluid(maxWidth: 1920) {
-          ...GatsbyImageSharpFluid_withWebp_noBase64
+        fixed(base64Width: 1920) {
+          base64
         }
       }
     }
