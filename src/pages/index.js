@@ -3,7 +3,6 @@ import React from "react"
 import { jsx, Styled } from "theme-ui"
 import { Grid } from "@theme-ui/components"
 import { graphql } from "gatsby"
-import BackgroundImage from "gatsby-background-image"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import Layout from "../components/layout"
@@ -13,22 +12,81 @@ import Lecturers from "../components/lecturers"
 import FilteredGallery from "../components/filtered-gallery"
 
 const IndexPage = ({ data }) => {
-  const { heroImage, contact, imageFiles } = data
+  const {
+    heroImage400,
+    heroImage600,
+    heroImage800,
+    heroImage,
+    contact,
+    imageFiles,
+  } = data
 
   return (
     <>
-      <BackgroundImage
-        fluid={heroImage.sharp.fluid}
-        fadeIn={false}
-        loading="eager"
+      {/* We try to manually optimize the header for LCP metric of Google */}
+      <div
         sx={{
+          position: "relative",
           height: [150, 200, 250],
         }}
       >
+        <picture>
+          <source
+            media="(max-width: 400px)"
+            srcSet={heroImage400.sharp.fixed.srcSetWebp}
+            type="image/webp"
+          />
+          <source
+            media="(min-width: 401px) and (max-width: 600px)"
+            srcSet={heroImage600.sharp.fixed.srcSetWebp}
+            type="image/webp"
+          />
+          <source
+            media="(min-width: 601px) and (max-width: 800px)"
+            srcSet={heroImage800.sharp.fixed.srcSetWebp}
+            type="image/webp"
+          />
+          <source
+            media="(min-width: 801px)"
+            srcSet={heroImage.sharp.fixed.srcSetWebp}
+            type="image/webp"
+          />
+          <source
+            media="(max-width: 400px)"
+            srcSet={heroImage400.sharp.fixed.srcSet}
+          />
+          <source
+            media="(min-width: 401px) and (max-width: 600px)"
+            srcSet={heroImage600.sharp.fixed.srcSet}
+          />
+          <source
+            media="(min-width: 601px) and (max-width: 800px)"
+            srcSet={heroImage800.sharp.fixed.srcSet}
+          />
+          <source
+            media="(min-width: 801px)"
+            srcSet={heroImage.sharp.fixed.srcSet}
+          />
+          <source srcSet={heroImage.sharp.fixed.srcWebp} type="image/webp" />
+          <img
+            src={heroImage.sharp.fixed.src}
+            alt="Hero image"
+            loading="eager"
+            sx={{
+              height: [150, 200, 250],
+              width: "100%",
+              objectFit: "cover",
+            }}
+          />
+        </picture>
+
         <div
           sx={{
-            height: "100%",
-            width: "100%",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
             backgroundImage: `linear-gradient(to right, #00416Add 4rem, #E4E5E600)`,
           }}
         >
@@ -46,8 +104,7 @@ const IndexPage = ({ data }) => {
             </h1>
           </Container>
         </div>
-      </BackgroundImage>
-
+      </div>
       <Layout>
         <SEO title="Naslovna" />
 
@@ -74,10 +131,46 @@ export default IndexPage
 
 export const query = graphql`
   {
+    heroImage400: file(relativePath: { eq: "images/hero.jpg" }) {
+      sharp: childImageSharp {
+        fixed(width: 400) {
+          srcSetWebp
+          srcSet
+          srcWebp
+          src
+        }
+      }
+    }
+
+    heroImage600: file(relativePath: { eq: "images/hero.jpg" }) {
+      sharp: childImageSharp {
+        fixed(width: 600) {
+          srcSetWebp
+          srcSet
+          srcWebp
+          src
+        }
+      }
+    }
+
+    heroImage800: file(relativePath: { eq: "images/hero.jpg" }) {
+      sharp: childImageSharp {
+        fixed(width: 800) {
+          srcSetWebp
+          srcSet
+          srcWebp
+          src
+        }
+      }
+    }
+
     heroImage: file(relativePath: { eq: "images/hero.jpg" }) {
       sharp: childImageSharp {
-        fluid(maxWidth: 1920) {
-          ...GatsbyImageSharpFluid_withWebp_noBase64
+        fixed(width: 1920) {
+          srcSetWebp
+          srcSet
+          srcWebp
+          src
         }
       }
     }

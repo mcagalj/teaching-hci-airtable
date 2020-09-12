@@ -24,7 +24,7 @@ const Lecturers = ({ ...props }) => {
               image {
                 childImageSharp {
                   fixed(width: 100, height: 100) {
-                    ...GatsbyImageSharpFixed
+                    ...GatsbyImageSharpFixed_withWebp_noBase64
                   }
                 }
               }
@@ -54,8 +54,10 @@ const Lecturers = ({ ...props }) => {
               }}
             >
               <Img
-                sx={{ mb: 1 }}
                 fixed={lecturer.frontmatter.image.childImageSharp.fixed}
+                fadeIn={false}
+                loading="eager"
+                sx={{ mb: 1 }}
               />
               <p sx={{ ml: 0, mr: 0, mb: 0 }}>{lecturer.frontmatter.name}</p>
               <p sx={{ m: 0 }}>
