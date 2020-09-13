@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from "react"
-import { jsx, useThemeUI, Box, Badge } from "theme-ui"
+import { jsx, useThemeUI, Badge } from "theme-ui"
 import { useRef, useState, useEffect } from "react"
 import { Link } from "gatsby"
 
@@ -49,7 +49,7 @@ const VisibleNavLink = ({ partiallyActive = false, cart = false, ...prop }) => {
   } = useCart()
   const isCartAndNonempty = cart && !!Object.keys(products).length
   return (
-    <Box sx={{ position: "relative" }}>
+    <div sx={{ position: "relative" }}>
       <NavLink
         {...prop}
         sx={{
@@ -80,7 +80,7 @@ const VisibleNavLink = ({ partiallyActive = false, cart = false, ...prop }) => {
           {Object.keys(products).length}
         </Badge>
       ) : null}
-    </Box>
+    </div>
   )
 }
 
@@ -92,7 +92,7 @@ const HiddenNavLink = ({ partiallyActive = false, cart = false, ...prop }) => {
   const isCartAndNonempty = cart && !!Object.keys(products).length
 
   return (
-    <Box sx={{ position: "relative" }}>
+    <div sx={{ position: "relative" }}>
       <NavLink
         {...prop}
         sx={{
@@ -120,7 +120,7 @@ const HiddenNavLink = ({ partiallyActive = false, cart = false, ...prop }) => {
           {Object.keys(products).length}
         </Badge>
       ) : null}
-    </Box>
+    </div>
   )
 }
 
