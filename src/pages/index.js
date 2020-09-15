@@ -187,7 +187,7 @@ export const query = graphql`
           id
           base
           sharp: childImageSharp {
-            fluid(maxWidth: 400, quality: 70) {
+            fluid(maxWidth: 400, maxHeight: 286, quality: 70) {
               ...GatsbyImageSharpFluid_withWebp_noBase64
             }
           }
