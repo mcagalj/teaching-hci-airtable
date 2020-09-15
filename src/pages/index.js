@@ -27,7 +27,7 @@ const IndexPage = ({ data }) => {
       <div
         sx={{
           position: "relative",
-          height: [150, 200, 250],
+          height: [150, 200, 250, 300],
         }}
       >
         <picture>
@@ -73,7 +73,7 @@ const IndexPage = ({ data }) => {
             alt="Hero image"
             loading="eager"
             sx={{
-              height: [150, 200, 250],
+              height: [150, 200, 250, 300],
               width: "100%",
               objectFit: "cover",
             }}
