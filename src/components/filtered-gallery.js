@@ -96,7 +96,8 @@ const FilteredGallery = ({ images = [], ...prop }) => {
               <Card key={image.id}>
                 <Img
                   key={image.id}
-                  fluid={{ ...image.sharp.fluid, aspectRatio: 21 / 15 }}
+                  // fluid={{ ...image.sharp.fluid, aspectRatio: 21 / 15 }}
+                  fluid={{ ...image.sharp.fluid }}
                 />
                 <p sx={{ mt: 1, mb: 0 }}>
                   by{" "}

@@ -27,7 +27,7 @@ const IndexPage = ({ data }) => {
       <div
         sx={{
           position: "relative",
-          height: [150, 200, 250],
+          height: [150, 200, 250, 300],
         }}
       >
         <picture>
@@ -73,7 +73,7 @@ const IndexPage = ({ data }) => {
             alt="Hero image"
             loading="eager"
             sx={{
-              height: [150, 200, 250],
+              height: [150, 200, 250, 300],
               width: "100%",
               objectFit: "cover",
             }}
@@ -187,7 +187,7 @@ export const query = graphql`
           id
           base
           sharp: childImageSharp {
-            fluid(maxWidth: 400, quality: 70) {
+            fluid(maxWidth: 400, maxHeight: 286, quality: 70) {
               ...GatsbyImageSharpFluid_withWebp_noBase64
             }
           }
